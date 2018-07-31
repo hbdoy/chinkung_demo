@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>商品年度銷售金額</title>
+    <title>商品年度銷售金額統計表</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="../index.html">勤工</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -85,6 +85,43 @@
             </form>
         </div>
     </nav>
+
+    <div class="container">
+        <h1 class="mb-3">商品年度銷售金額統計表</h1>
+        <p class="p-2 bg-warning">
+            尚須確認商品編號的產生規則，以便範圍搜尋。
+        </p>
+        <form autocomplete="off">
+            <div class="form-group row">
+                <label for="count-itemId1" class="col-sm-2 col-form-label">成品編號</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="count-itemId1" placeholder="50D-BCS-64A">
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="count-itemName1" placeholder="2.5T 平夾">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="count-itemId2" class="col-sm-2 col-form-label">(範圍搜尋)</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="count-itemId2" placeholder="Z000221">
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="count-itemName2" placeholder="整修開關排">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="count-year" class="col-sm-2 col-form-label">年度</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="count-year">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mb-2 mr-2">查詢</button>
+                <button class="btn btn-danger mb-2">取消</button>
+            </div>
+        </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
