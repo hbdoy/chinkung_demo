@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="../index.html">勤工</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -85,6 +85,112 @@
             </form>
         </div>
     </nav>
+
+    <div class="container">
+        <h1 class="mb-3">廠商資料建檔</h1>
+        <form autocomplete="off">
+            <div class="form-group row">
+                <label for="vendor-id" class="col-sm-2 col-form-label">廠商編號</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-id">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-name" class="col-sm-2 col-form-label">廠商名稱</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-name">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-nickName" class="col-sm-2 col-form-label">廠商簡稱</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-nickName">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-uniformNum" class="col-sm-2 col-form-label">統一編號</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="vendor-uniformNum">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-principal" class="col-sm-2 col-form-label">負責人</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-principal">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-contactMan" class="col-sm-2 col-form-label">聯絡人</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-contactMan">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-phone" class="col-sm-2 col-form-label">連絡電話</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-phone" placeholder="格式: 00-1234567">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-companyPhone" class="col-sm-2 col-form-label">公司電話</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-companyPhone" placeholder="格式: 00-1234567">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-fax" class="col-sm-2 col-form-label">傳真號碼</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-fax" placeholder="格式: 00-1234567">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-cellPhone" class="col-sm-2 col-form-label">行動電話</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-cellPhone" placeholder="格式: 0912-345678">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-postalCode" class="col-sm-2 col-form-label">郵遞區號</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="vendor-postalCode">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-email" class="col-sm-2 col-form-label">電子郵件</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="vendor-email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-addr" class="col-sm-2 col-form-label">公司地址</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-address">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-invoiceAddr" class="col-sm-2 col-form-label">發票地址</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-invoiceAddr">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-checkoutDay" class="col-sm-2 col-form-label">結帳日</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="vendor-checkoutDay">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="vendor-note" class="col-sm-2 col-form-label">備註</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="vendor-note">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mb-2 mr-2">建立</button>
+                <button class="btn btn-danger mb-2">取消</button>
+            </div>
+        </form>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
