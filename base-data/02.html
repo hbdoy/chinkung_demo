@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="../index.html">勤工</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -85,6 +85,172 @@
             </form>
         </div>
     </nav>
+
+    <div class="container">
+        <h1 class="mb-3">物料/成品成本調整</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">操作</th>
+                        <th scope="col">物料/成品編號</th>
+                        <th scope="col">物料/成品名稱</th>
+                        <th scope="col">單位</th>
+                        <th scope="col">售價</th>
+                        <th scope="col">成本</th>
+                        <th scope="col">以下欄位尚須確認</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">修改</button>
+                        </td>
+                        <td>50D-BCS-64A</td>
+                        <td>2.5T 平夾</td>
+                        <td>組</td>
+                        <td>0.00</td>
+                        <td>131636.00</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">修改</button>
+                        </td>
+                        <td>672567</td>
+                        <td>輪盤</td>
+                        <td>支</td>
+                        <td>1800.00</td>
+                        <td>0.00</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">修改</button>
+                        </td>
+                        <td>A001300</td>
+                        <td>3.0T 傾斜貨叉</td>
+                        <td>組</td>
+                        <td>55000.00</td>
+                        <td>0.00</td>
+                        <td>...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">物料/成品資料修改</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group row">
+                                <label for="item-id" class="col-sm-2 col-form-label">物料/成品編號</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="item-id" value="50D-BCS-64A">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-name" class="col-sm-2 col-form-label">物料/成品名稱</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="item-name" value="2.5T 平夾">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-type" class="col-sm-2 col-form-label">型態</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="item-type">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-unit" class="col-sm-2 col-form-label">庫存單位</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="item-unit" value="組">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-price" class="col-sm-2 col-form-label">售價</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="item-price" value="0.00">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-recPrice" class="col-sm-2 col-form-label">建議售價</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="item-recPrice">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-listPrice" class="col-sm-2 col-form-label">牌價</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="item-listPrice">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-wage" class="col-sm-2 col-form-label">工資</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="item-wage">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-checkStock" class="col-sm-2 col-form-label">是否建立庫存</label>
+                                <div class="col-sm-10">
+                                    <select class="custom-select mr-sm-2" id="item-checkStock">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-buyDate" class="col-sm-2 col-form-label">最近進料日</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" id="item-buyDate">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-sellDate" class="col-sm-2 col-form-label">最近銷貨日</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" id="item-sellDate">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-stock" class="col-sm-2 col-form-label">庫存量</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="item-stock">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-safeStock" class="col-sm-2 col-form-label">安全存量</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="item-safeStock">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item-cost" class="col-sm-2 col-form-label">成本</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="item-cost" value="131636.00">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <div class="text-center"> -->
+                            <button type="submit" class="btn btn-primary mb-2 mr-2">建立</button>
+                            <button class="btn btn-danger mb-2" data-dismiss="modal">取消</button>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
