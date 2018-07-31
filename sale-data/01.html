@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="../index.html">勤工</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -86,12 +86,235 @@
         </div>
     </nav>
 
+    <div class="container">
+        <h1 class="mb-3">銷貨單輸入作業</h1>
+        <p class="bg-info p-2 text-white">
+            使用說明: 先查詢該客戶購買的商品，添加之後可以點選「查看銷售商品」，確認該客戶購買的所有商品。
+            <br>
+            表單中銷貨、折讓、含稅金額，系統會根據 : 銷貨折讓、稅額，自動計算填入，不開放修改。
+        </p>
+        <div class="card card-body mb-3">
+            <form autocomplete="off">
+                <div class="form-group row">
+                    <label for="item-id" class="col-sm-2 col-form-label">商品編號/商品名稱</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="item-key" value="G002035">
+                    </div>
+                </div>
+            </form>
+            <button class="btn btn-success mb-3" type="button" id="searchBtn">
+                搜尋
+            </button>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">操作</th>
+                            <th scope="col">商品編號</th>
+                            <th scope="col">商品名稱</th>
+                            <th scope="col">單位</th>
+                            <th scope="col">單價</th>
+                            <th scope="col">數量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="searchTest"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#saleProducts" aria-expanded="false"
+            aria-controls="saleProducts">
+            查看銷售商品
+        </button>
+        <div class="collapse mb-3" id="saleProducts">
+            <div class="card card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">操作</th>
+                                <th scope="col">商品編號</th>
+                                <th scope="col">商品名稱</th>
+                                <th scope="col">單位</th>
+                                <th scope="col">數量</th>
+                                <th scope="col">單價</th>
+                                <th scope="col">小計</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-danger">刪除</button>
+                                </td>
+                                <td>A021250</td>
+                                <td>2.5T 護欄</td>
+                                <td>組</td>
+                                <td>6.00</td>
+                                <td>1300.00</td>
+                                <td>7800.00</td>
+                            </tr>
+                            <tr id="test"></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="font-weight-bold">
+                    總計: 
+                    <span id="totalPrice">7800</span>
+                </div>
+            </div>
+        </div>
+
+        <form autocomplete="off">
+            <div class="form-group row">
+                <label for="sale-id" class="col-sm-2 col-form-label">銷貨單號</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sale-id">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-date" class="col-sm-2 col-form-label">銷貨日期</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="sale-date">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-clientId" class="col-sm-2 col-form-label">客戶編號</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sale-clientId">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-clientName" class="col-sm-2 col-form-label">客戶名稱</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sale-clientName">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-checkoutDay" class="col-sm-2 col-form-label">結帳日</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sale-checkoutDay">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-checkoutMonth" class="col-sm-2 col-form-label">結帳月份</label>
+                <div class="col-sm-10">
+                    <input type="month" class="form-control" id="sale-checkoutMonth">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-deliveryAddr" class="col-sm-2 col-form-label">送貨地址</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sale-deliveryAddr">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-invoiceNum" class="col-sm-2 col-form-label">發票號碼</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sale-invoiceNum">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-salesAmount" class="col-sm-2 col-form-label">銷貨金額</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sale-salesAmount" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-salesDiscount" class="col-sm-2 col-form-label">銷貨折讓</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sale-salesDiscount">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-amountAfterDis" class="col-sm-2 col-form-label">折讓後金額</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sale-amountAfterDis" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-taxation" class="col-sm-2 col-form-label">稅別</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sale-taxation">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-tax" class="col-sm-2 col-form-label">稅額</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sale-tax">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-totalAmount" class="col-sm-2 col-form-label">含稅總額</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="sale-totalAmount" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="sale-note" class="col-sm-2 col-form-label">備註</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="sale-note">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mb-2 mr-2">建立</button>
+                <button class="btn btn-danger mb-2">取消</button>
+            </div>
+        </form>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
+
+    <script>
+        $(document).on('click', '#submitProduct', function (e) {
+            if (!isNaN($("#productNum").val()) && $("#productNum").val() != "") {
+                $("#test").html(
+                    `
+                    <td>
+                        <button class="btn btn-danger">刪除</button>
+                    </td>
+                    <td>G002035</td>
+                    <td>鋼滑片</td>
+                    <td>只</td>
+                    <td>${$("#productNum").val()}</td>
+                    <td>1300.00</td>
+                    <td>${$("#productNum").val() * 1300}</td>
+                `
+                );
+                alert("添加成功，請點擊查看銷售商品");
+                $("#totalPrice").html($("#productNum").val() * 1300 + 7800);
+            } else {
+                alert("請輸入商品數量")
+            }
+            // console.log($("#productNum").val())
+        });
+        $("#searchBtn").click(function (e) {
+            if ($("#item-key").val() == "G002035") {
+                $("#searchTest").html(
+                    `
+                    <td>
+                        <button class="btn btn-warning" id="submitProduct">添加</button>
+                    </td>
+                    <td>G002035</td>
+                    <td>鋼滑片</td>
+                    <td>只</td>
+                    <td>750.00</td>
+                    <td>
+                        <input type="number" class="" id="productNum" required>
+                    </td>
+                `
+                );
+            } else {
+                alert("目前只支援G002035的查詢");
+            }
+            // console.log($("#productNum").val())
+        });
+    </script>
 </body>
 
 </html>
