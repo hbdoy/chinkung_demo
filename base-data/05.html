@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>物料/成品成本調整</title>
+    <title>客戶資料修改</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
 </head>
@@ -89,17 +89,17 @@
     </nav>
 
     <div class="container">
-        <h1 class="mb-3">物料/成品成本調整</h1>
+        <h1 class="mb-3">客戶資料修改</h1>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">操作</th>
-                        <th scope="col">物料/成品編號</th>
-                        <th scope="col">物料/成品名稱</th>
-                        <th scope="col">單位</th>
-                        <th scope="col">售價</th>
-                        <th scope="col">成本</th>
+                        <th scope="col">客戶編號</th>
+                        <th scope="col">客戶名稱</th>
+                        <th scope="col">負責人</th>
+                        <th scope="col">連絡電話</th>
+                        <th scope="col">電子郵件</th>
                         <th scope="col">以下欄位尚須確認</th>
                     </tr>
                 </thead>
@@ -113,7 +113,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">物料/成品資料修改</h5>
+                        <h5 class="modal-title" id="editModalLabel">客戶資料修改</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -121,96 +121,141 @@
                     <div class="modal-body">
                         <form autocomplete="off">
                             <div class="form-group row">
-                                <label for="item-id" class="col-sm-2 col-form-label">編號</label>
+                                <label for="client-id" class="col-sm-2 col-form-label">客戶編號</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-id" disabled>
+                                    <input type="text" class="form-control" id="client-id" disabled>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-name" class="col-sm-2 col-form-label">名稱</label>
+                                <label for="client-name" class="col-sm-2 col-form-label">客戶名稱</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-name">
+                                    <input type="text" class="form-control" id="client-name">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-type" class="col-sm-2 col-form-label">型態</label>
+                                <label for="client-nickName" class="col-sm-2 col-form-label">客戶簡稱</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-type">
+                                    <input type="text" class="form-control" id="client-nickName">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-unit" class="col-sm-2 col-form-label">庫存單位</label>
+                                <label for="client-uniformNum" class="col-sm-2 col-form-label">統一編號</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-unit">
+                                    <input type="number" class="form-control" id="client-uniformNum">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-price" class="col-sm-2 col-form-label">售價</label>
+                                <label for="client-principal" class="col-sm-2 col-form-label">負責人</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-price">
+                                    <input type="text" class="form-control" id="client-principal">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-recPrice" class="col-sm-2 col-form-label">建議售價</label>
+                                <label for="client-principalBirth" class="col-sm-2 col-form-label">負責人生日</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-recPrice">
+                                    <input type="date" class="form-control" id="client-principalBirth">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-listPrice" class="col-sm-2 col-form-label">牌價</label>
+                                <label for="client-contactMan" class="col-sm-2 col-form-label">聯絡人</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-listPrice">
+                                    <input type="text" class="form-control" id="client-contactMan">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-wage" class="col-sm-2 col-form-label">工資</label>
+                                <label for="client-salesMan" class="col-sm-2 col-form-label">業務員</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-wage">
+                                    <input type="text" class="form-control" id="client-salesMan">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-checkStock" class="col-sm-2 col-form-label">是否建立庫存</label>
+                                <label for="client-phone" class="col-sm-2 col-form-label">連絡電話</label>
                                 <div class="col-sm-10">
-                                    <select class="custom-select mr-sm-2" id="item-checkStock">
-                                        <option value="1">Yes</option>
-                                        <option value="0" selected>No</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="client-phone" placeholder="格式: 00-1234567">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-buyDate" class="col-sm-2 col-form-label">最近進料日</label>
+                                <label for="client-companyPhone" class="col-sm-2 col-form-label">公司電話</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="item-buyDate">
+                                    <input type="text" class="form-control" id="client-companyPhone" placeholder="格式: 00-1234567">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-sellDate" class="col-sm-2 col-form-label">最近銷貨日</label>
+                                <label for="client-fax" class="col-sm-2 col-form-label">傳真號碼</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="item-sellDate">
+                                    <input type="text" class="form-control" id="client-fax" placeholder="格式: 00-1234567">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-stock" class="col-sm-2 col-form-label">庫存量</label>
+                                <label for="client-cellPhone" class="col-sm-2 col-form-label">行動電話</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-stock">
+                                    <input type="text" class="form-control" id="client-cellPhone" placeholder="格式: 0912-345678">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-safeStock" class="col-sm-2 col-form-label">安全存量</label>
+                                <label for="client-postalCode" class="col-sm-2 col-form-label">郵遞區號</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-safeStock">
+                                    <input type="number" class="form-control" id="client-postalCode">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-cost" class="col-sm-2 col-form-label">成本</label>
+                                <label for="client-email" class="col-sm-2 col-form-label">電子郵件</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-cost">
+                                    <input type="email" class="form-control" id="client-email">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-note" class="col-sm-2 col-form-label">備註</label>
+                                <label for="client-addr" class="col-sm-2 col-form-label">公司地址</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-note">
+                                    <input type="text" class="form-control" id="client-address">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-deliveryAddr" class="col-sm-2 col-form-label">送貨地址</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="client-deliveryAddr">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-invoiceAddr" class="col-sm-2 col-form-label">發票地址</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="client-invoiceAddr">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-invoiceTitle" class="col-sm-2 col-form-label">發票抬頭</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="client-invoiceTitle">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-credits" class="col-sm-2 col-form-label">信用額度</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="client-credits">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-checkoutDay" class="col-sm-2 col-form-label">結帳日</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="client-checkoutDay">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-billingDay" class="col-sm-2 col-form-label">寄單日</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="client-billingDay">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-requestDay" class="col-sm-2 col-form-label">請款日</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="client-requestDay">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="client-note" class="col-sm-2 col-form-label">備註</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="client-note">
                                 </div>
                             </div>
                         </form>
@@ -247,7 +292,7 @@
         };
         firebase.initializeApp(config);
     </script>
-    <script src="./js/02.js"></script>
+    <script src="./js/05.js"></script>
 </body>
 
 </html>
