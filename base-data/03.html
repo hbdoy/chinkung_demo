@@ -228,18 +228,35 @@
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary mb-2 mr-2">建立</button>
+                <button id="createBtn" class="btn btn-primary mb-2 mr-2">建立</button>
                 <button class="btn btn-danger mb-2">取消</button>
             </div>
         </form>
     </div>
 
-    <footer class="container-fluid px-3 pb-5  text-center">         <hr>         © 2018 勤工企業有限公司版權所有.     </footer><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    <footer class="container-fluid px-3 pb-5  text-center">
+        <hr> © 2018 勤工企業有限公司版權所有.
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+            authDomain: "chinkung-e5d67.firebaseapp.com",
+            databaseURL: "https://chinkung-e5d67.firebaseio.com",
+            projectId: "chinkung-e5d67",
+            storageBucket: "chinkung-e5d67.appspot.com",
+            messagingSenderId: "404770260366"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="./js/03.js"></script>
 </body>
 
 </html>
