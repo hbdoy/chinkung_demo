@@ -101,50 +101,17 @@
                         <th scope="col">以下欄位尚須確認</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">修改</button>
-                        </td>
-                        <td>50D-BCS-64A</td>
-                        <td>2.5T 平夾</td>
-                        <td>組</td>
-                        <td>0.00</td>
-                        <td>131636.00</td>
-                        <td>...</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">修改</button>
-                        </td>
-                        <td>672567</td>
-                        <td>輪盤</td>
-                        <td>支</td>
-                        <td>1800.00</td>
-                        <td>0.00</td>
-                        <td>...</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal">修改</button>
-                        </td>
-                        <td>A001300</td>
-                        <td>3.0T 傾斜貨叉</td>
-                        <td>組</td>
-                        <td>55000.00</td>
-                        <td>0.00</td>
-                        <td>...</td>
-                    </tr>
+                <tbody id="dataList">
                 </tbody>
             </table>
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">物料/成品資料修改</h5>
+                        <h5 class="modal-title" id="editModalLabel">物料/成品資料修改</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -152,15 +119,15 @@
                     <div class="modal-body">
                         <form autocomplete="off">
                             <div class="form-group row">
-                                <label for="item-id" class="col-sm-2 col-form-label">物料/成品編號</label>
+                                <label for="item-id" class="col-sm-2 col-form-label">編號</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-id" value="50D-BCS-64A">
+                                    <input type="text" class="form-control" id="item-id" disabled>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="item-name" class="col-sm-2 col-form-label">物料/成品名稱</label>
+                                <label for="item-name" class="col-sm-2 col-form-label">名稱</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-name" value="2.5T 平夾">
+                                    <input type="text" class="form-control" id="item-name">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -172,13 +139,13 @@
                             <div class="form-group row">
                                 <label for="item-unit" class="col-sm-2 col-form-label">庫存單位</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-unit" value="組">
+                                    <input type="text" class="form-control" id="item-unit">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="item-price" class="col-sm-2 col-form-label">售價</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-price" value="0.00">
+                                    <input type="number" class="form-control" id="item-price">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -235,19 +202,19 @@
                             <div class="form-group row">
                                 <label for="item-cost" class="col-sm-2 col-form-label">成本</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="item-cost" value="131636.00">
+                                    <input type="number" class="form-control" id="item-cost">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="item-note" class="col-sm-2 col-form-label">備註</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="item-note" value="131636.00">
+                                    <input type="text" class="form-control" id="item-note">
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary mb-2 mr-2">建立</button>
+                        <button id="updateBtn" class="btn btn-primary mb-2 mr-2">修改</button>
                         <button class="btn btn-danger mb-2" data-dismiss="modal">取消</button>
                     </div>
                 </div>
@@ -256,12 +223,29 @@
     </div>
 
 
-    <footer class="container-fluid px-3 pb-5  text-center">         <hr>         © 2018 勤工企業有限公司版權所有.     </footer><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    <footer class="container-fluid px-3 pb-5  text-center">
+        <hr> © 2018 勤工企業有限公司版權所有.
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+            authDomain: "chinkung-e5d67.firebaseapp.com",
+            databaseURL: "https://chinkung-e5d67.firebaseio.com",
+            projectId: "chinkung-e5d67",
+            storageBucket: "chinkung-e5d67.appspot.com",
+            messagingSenderId: "404770260366"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="./js/02.js"></script>
 </body>
 
 </html>
