@@ -92,8 +92,23 @@
         <h1 class="mb-3">銷貨退回單作業</h1>
         <p class="bg-warning p-2">
             此頁面還須確認此單中的銷售商品是否是全部退回，還是能夠選擇需要刪減的商品/數量。
-            <br> 還需要確認是由哪個頁面點選某銷貨單後，進入此銷貨退回頁。
+            <br> 以及銷貨退回的作業流程
         </p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">操作</th>
+                        <th scope="col">銷貨單號</th>
+                        <th scope="col">客戶名稱</th>
+                        <th scope="col">含稅總額</th>
+                        <th scope="col">銷貨日期</th>
+                    </tr>
+                </thead>
+                <tbody id="dataList">
+                </tbody>
+            </table>
+        </div>
         <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#saleProducts" aria-expanded="false"
             aria-controls="saleProducts">
             查看銷售商品
@@ -113,24 +128,13 @@
                                 <th scope="col">小計</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <button class="btn btn-danger">刪除</button>
-                                </td>
-                                <td>A021250</td>
-                                <td>2.5T 護欄</td>
-                                <td>組</td>
-                                <td>6.00</td>
-                                <td>1300.00</td>
-                                <td>7800.00</td>
-                            </tr>
+                        <tbody id="sellProduct">
                         </tbody>
                     </table>
                 </div>
                 <div class="font-weight-bold">
                     總計:
-                    <span id="totalPrice">7800.00</span>
+                    <span id="totalPrice">0</span>
                 </div>
             </div>
         </div>
@@ -139,7 +143,7 @@
             <div class="form-group row">
                 <label for="return-id" class="col-sm-2 col-form-label">退回單號</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="return-id">
+                    <input type="number" class="form-control" id="return-id" disabled>
                 </div>
             </div>
             <div class="form-group row">
@@ -151,25 +155,25 @@
             <div class="form-group row">
                 <label for="return-clientId" class="col-sm-2 col-form-label">客戶編號</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="return-clientId">
+                    <input type="text" class="form-control" id="return-clientId" disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="return-clientName" class="col-sm-2 col-form-label">客戶名稱</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="return-clientName">
+                    <input type="text" class="form-control" id="return-clientName" disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="return-checkoutDay" class="col-sm-2 col-form-label">結帳日</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="return-checkoutDay">
+                    <input type="number" class="form-control" id="return-checkoutDay" disabled>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="return-checkoutMonth" class="col-sm-2 col-form-label">結帳月份</label>
                 <div class="col-sm-10">
-                    <input type="month" class="form-control" id="return-checkoutMonth">
+                    <input type="month" class="form-control" id="return-checkoutMonth" disabled>
                 </div>
             </div>
             <div class="form-group row">
@@ -181,11 +185,11 @@
             <div class="form-group row">
                 <label for="return-totalAmount" class="col-sm-2 col-form-label">總合計</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="return-totalAmount">
+                    <input type="number" class="form-control" id="return-totalAmount" disabled>
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary mb-2 mr-2">建立</button>
+                <button class="btn btn-primary mb-2 mr-2">建立(還須確認)</button>
                 <button class="btn btn-danger mb-2">取消</button>
             </div>
         </form>
@@ -200,6 +204,20 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+            authDomain: "chinkung-e5d67.firebaseapp.com",
+            databaseURL: "https://chinkung-e5d67.firebaseio.com",
+            projectId: "chinkung-e5d67",
+            storageBucket: "chinkung-e5d67.appspot.com",
+            messagingSenderId: "404770260366"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="./js/02.js"></script>
 </body>
 
 </html>

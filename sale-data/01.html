@@ -131,7 +131,7 @@
         </div>
         <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#saleProducts" aria-expanded="false"
             aria-controls="saleProducts">
-            查看銷售商品
+            點我查看銷售商品
         </button>
         <div class="collapse mb-3" id="saleProducts">
             <div class="card card-body">
@@ -255,7 +255,7 @@
             <div class="form-group row">
                 <label for="sale-salesDiscount" class="col-sm-2 col-form-label">銷貨折讓</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-salesDiscount" onkeyup="updateFormPrice()">
+                    <input type="number" class="form-control" id="sale-salesDiscount" onkeyup="updateFormPrice()" value="0">
                 </div>
             </div>
             <div class="form-group row">
@@ -273,7 +273,7 @@
             <div class="form-group row">
                 <label for="sale-tax" class="col-sm-2 col-form-label">稅額</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-tax" onkeyup="updateFormPrice()">
+                    <input type="number" class="form-control" id="sale-tax" onkeyup="updateFormPrice()" value="0">
                 </div>
             </div>
             <div class="form-group row">

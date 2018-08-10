@@ -199,6 +199,7 @@ function updateTotalPrice() {
 function autoFillInFormPrice(totalPrice) {
     // 將售出商品總額填入表單中的銷貨金額
     document.querySelector("#sale-salesAmount").value = totalPrice;
+    updateFormPrice();
 }
 
 function updateFormPrice() {
