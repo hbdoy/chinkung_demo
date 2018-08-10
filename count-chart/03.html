@@ -6,6 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>商品年度銷售金額統計表</title>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+            authDomain: "chinkung-e5d67.firebaseapp.com",
+            databaseURL: "https://chinkung-e5d67.firebaseio.com",
+            projectId: "chinkung-e5d67",
+            storageBucket: "",
+            messagingSenderId: "404770260366"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script>
+        var user;
+        firebase.auth().onAuthStateChanged(function (userS) {
+            if (userS) {
+                user = userS;
+                console.log("User is logined", user)
+            } else {
+                user = null;
+                console.log("User is not logined yet.");
+                window.location.href = '../login.html';
+            }
+        });
+    </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
 </head>
@@ -28,7 +54,9 @@
                         <a class="dropdown-item" href="../base-data/01.html">物料/成品資料建檔</a>
                         <a class="dropdown-item" href="../base-data/02.html">物料/成品成本調整</a>
                         <a class="dropdown-item" href="../base-data/03.html">客戶資料建檔</a>
-                        <a class="dropdown-item" href="../base-data/04.html">廠商資料建檔</a><a class="dropdown-item" href="../base-data/05.html">客戶資料修改</a><a class="dropdown-item" href="../base-data/06.html">廠商資料修改</a>
+                        <a class="dropdown-item" href="../base-data/04.html">廠商資料建檔</a>
+                        <a class="dropdown-item" href="../base-data/05.html">客戶資料修改</a>
+                        <a class="dropdown-item" href="../base-data/06.html">廠商資料修改</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -80,8 +108,8 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="firebase.auth().signOut().then(function () { console.log('User sign out!');}, function (error) {console.log('User sign out error!'); })">登出</button>
             </form>
         </div>
     </nav>
@@ -123,7 +151,10 @@
         </form>
     </div>
 
-    <footer class="container-fluid px-3 pb-5  text-center">         <hr>         © 2018 勤工企業有限公司版權所有.     </footer><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    <footer class="container-fluid px-3 pb-5  text-center">
+        <hr> © 2018 勤工企業有限公司版權所有.
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>

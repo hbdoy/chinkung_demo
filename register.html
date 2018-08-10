@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Regist Account</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/my-login.css">
+</head>
+
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-center h-100">
+				<div class="pt-3 card-wrapper">
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">Register</h4>
+							<form>
+
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input id="userName" type="text" class="form-control" required autofocus>
+								</div>
+
+								<div class="form-group">
+									<label for="email">E-Mail Address</label>
+									<input id="email" type="email" class="form-control" required>
+								</div>
+
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input id="password" type="password" class="form-control" required data-eye>
+								</div>
+
+								<div class="form-group no-margin">
+									<button id="submitBtn" class="btn btn-primary btn-block">
+										Register
+									</button>
+								</div>
+								<div class="margin-top20 text-center">
+									Already have an account?
+									<a href="./login.html">Login</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<footer class="container-fluid px-3 pb-5  text-center">
+						<hr> © 2018 勤工企業有限公司版權所有.
+					</footer>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	    crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	    crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+	    crossorigin="anonymous"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+			authDomain: "chinkung-e5d67.firebaseapp.com",
+			databaseURL: "https://chinkung-e5d67.firebaseio.com",
+			projectId: "chinkung-e5d67",
+			storageBucket: "",
+			messagingSenderId: "404770260366"
+		};
+		firebase.initializeApp(config);
+	</script>
+	<script>
+		var db = firebase.database();
+		// Email/Pwd註冊
+		var userName = document.getElementById("userName");
+		var email = document.getElementById("email");
+		var password = document.getElementById("password");
+		var submitBtn = document.getElementById("submitBtn");
+		var canRegist, user;
+		submitBtn.addEventListener("click", function (e) {
+			e.preventDefault();
+			db.ref('/canRegist').once('value', function (snapshot) {
+				canRegist = snapshot.val();
+			}).then(function () {
+				if (canRegist) {
+					firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function () {
+						user = firebase.auth().currentUser;
+						if (user) {
+							db.ref("/user/" + user.uid).set({
+								"name": userName.value,
+								"uid": user.uid,
+								"email": user.email
+							}).then(function () {
+								alert("註冊成功");
+								window.location.href = './index.html';
+							}).catch(function (error){
+								alert("發生錯誤，請稍後再試");
+							});
+						} else {
+							user = null;
+							alert("發生錯誤，請稍後再試");
+						}
+					}).catch(function (error) {
+						// var errorCode = error.code;
+						var errorMessage = error.message;
+						alert(errorMessage);
+					});
+				} else {
+					alert("目前不開放註冊");
+				}
+			});
+		}, false);
+	</script>
+</body>
+
+</html>

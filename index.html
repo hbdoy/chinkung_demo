@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="./index.html">勤工</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -82,19 +82,24 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="firebase.auth().signOut().then(function () { console.log('User sign out!');}, function (error) {console.log('User sign out error!'); })">登出</button>
             </form>
         </div>
     </nav>
 
-    <div class="text-center p-5" style="min-height: 80vh;">
-        <h1>歡迎使用</h1>
-        <p class="bg-success">
-            <h6>
-                此處規劃為帳密登入
-            </h6>
-        </p>
+    <div class="container d-flex justify-content-center">
+        <div class="text-center" style="width: 500px; min-height: 80vh;">
+            <h1>帳戶資料</h1>
+            <div class="mb-2 d-flex justify-content-start">
+                <div class="mr-3 text-left" style="width: 70px">帳戶名稱:</div>
+                <div id="name"></div>
+            </div>
+            <div class="mb-2 d-flex justify-content-start">
+                <div class="mr-3 text-left" style="width: 70px">Email:</div>
+                <div id="email"></div>
+            </div>
+            <div id="note"></div>
+        </div>
     </div>
 
     <footer class="container-fluid px-3 pb-5  text-center">
@@ -107,6 +112,63 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+            authDomain: "chinkung-e5d67.firebaseapp.com",
+            databaseURL: "https://chinkung-e5d67.firebaseio.com",
+            projectId: "chinkung-e5d67",
+            storageBucket: "",
+            messagingSenderId: "404770260366"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script>
+        var db = firebase.database();
+        var user;
+        firebase.auth().onAuthStateChanged(function (userS) {
+            if (userS) {
+                var userData;
+                user = userS;
+                console.log("User is logined", user)
+                $("#email").html(user.email);
+                if (!user.emailVerified) {
+                    $("#note").html(
+                        `
+                        <div class='bg-danger text-white p-3 mb-3'>
+                            Email 尚未驗證，請盡快驗證
+                            <br>
+                            未驗證將無法變更與找回密碼
+                        </div>
+                        <button class="btn btn-primary" onclick="user.sendEmailVerification().then(function () {alert('驗證信寄出，請到信箱收信');}, function (error) {alert('發生錯誤，請稍後再試');});">點我寄出驗證信</button>
+                        `
+                    );
+                } else {
+                    $("#note").html(
+                        `
+                        <div class='bg-success text-white p-3 mb-3'>
+                            Email 已通過驗證
+                        </div>
+                        <button class="btn btn-primary" onclick="firebase.auth().sendPasswordResetEmail(user.email).then(function () {alert('更改密碼 Email 已發送');}, function (error) {alert('發生錯誤', error);});">點我更改密碼</button>
+                        `
+                    );
+                }
+                db.ref('/user/' + user.uid).once('value', function (snapshot) {
+                    userData = snapshot.val();
+                }).then(function () {
+                    $("#name").html(userData.name);
+                }).catch(function () {
+                    alert("發生錯誤，無法顯示資料");
+                })
+            } else {
+                user = null;
+                console.log("User is not logined yet.");
+                window.location.href = '../login.html';
+            }
+        });
+    </script>
 </body>
 
 </html>

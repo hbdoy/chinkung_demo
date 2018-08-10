@@ -6,6 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>銷退貨金額檢查</title>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+            authDomain: "chinkung-e5d67.firebaseapp.com",
+            databaseURL: "https://chinkung-e5d67.firebaseio.com",
+            projectId: "chinkung-e5d67",
+            storageBucket: "",
+            messagingSenderId: "404770260366"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script>
+        var user;
+        firebase.auth().onAuthStateChanged(function (userS) {
+            if (userS) {
+                user = userS;
+                console.log("User is logined", user)
+            } else {
+                user = null;
+                console.log("User is not logined yet.");
+                window.location.href = '../login.html';
+            }
+        });
+    </script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
 </head>
@@ -28,7 +54,9 @@
                         <a class="dropdown-item" href="../base-data/01.html">物料/成品資料建檔</a>
                         <a class="dropdown-item" href="../base-data/02.html">物料/成品成本調整</a>
                         <a class="dropdown-item" href="../base-data/03.html">客戶資料建檔</a>
-                        <a class="dropdown-item" href="../base-data/04.html">廠商資料建檔</a><a class="dropdown-item" href="../base-data/05.html">客戶資料修改</a><a class="dropdown-item" href="../base-data/06.html">廠商資料修改</a>
+                        <a class="dropdown-item" href="../base-data/04.html">廠商資料建檔</a>
+                        <a class="dropdown-item" href="../base-data/05.html">客戶資料修改</a>
+                        <a class="dropdown-item" href="../base-data/06.html">廠商資料修改</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -80,44 +108,47 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="firebase.auth().signOut().then(function () { console.log('User sign out!');}, function (error) {console.log('User sign out error!'); })">登出</button>
             </form>
         </div>
     </nav>
 
     <div class="container">
-            <h1 class="mb-3">銷退貨金額檢查</h1>
-            <p class="p-2 bg-warning">
-                尚須確認選擇項目要填入的值為何
-            </p>
-            <form autocomplete="off">
-                <div class="form-group row">
-                    <label for="count-year1" class="col-sm-2 col-form-label">起始日期</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" id="count-year1">
-                    </div>
+        <h1 class="mb-3">銷退貨金額檢查</h1>
+        <p class="p-2 bg-warning">
+            尚須確認選擇項目要填入的值為何
+        </p>
+        <form autocomplete="off">
+            <div class="form-group row">
+                <label for="count-year1" class="col-sm-2 col-form-label">起始日期</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="count-year1">
                 </div>
-                <div class="form-group row">
-                    <label for="count-year2" class="col-sm-2 col-form-label">終止日期</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" id="count-year2">
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label for="count-year2" class="col-sm-2 col-form-label">終止日期</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="count-year2">
                 </div>
-                <div class="form-group row">
-                    <label for="count-choose" class="col-sm-2 col-form-label">選擇項目</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="count-choose">
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label for="count-choose" class="col-sm-2 col-form-label">選擇項目</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="count-choose">
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary mb-2 mr-2">查詢</button>
-                    <button class="btn btn-danger mb-2">取消</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mb-2 mr-2">查詢</button>
+                <button class="btn btn-danger mb-2">取消</button>
+            </div>
+        </form>
+    </div>
 
-    <footer class="container-fluid px-3 pb-5  text-center">         <hr>         © 2018 勤工企業有限公司版權所有.     </footer><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    <footer class="container-fluid px-3 pb-5  text-center">
+        <hr> © 2018 勤工企業有限公司版權所有.
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
