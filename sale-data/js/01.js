@@ -1,6 +1,7 @@
 var db = firebase.database();
 
 var allData = {};
+var allClient = {};
 
 // 先抓取所有產品，以供查詢
 db.ref('/product').once('value', function (snapshot) {
@@ -8,16 +9,38 @@ db.ref('/product').once('value', function (snapshot) {
     // console.log(allData);
 });
 
+db.ref('/client').once('value', function (snapshot) {
+    allClient = snapshot.val();
+    // console.log(allClient);
+});
+
 $("#createBtn").click(createSell);
+
+// 搜尋產品/客戶
 $("#searchBtn").click(mySearch);
+$("#client_searchBtn").click(client_mySearch);
 $("#item-key").keypress(function (e) {
     if (e.keyCode == 13) {
+        e.preventDefault();
         mySearch();
     }
 });
 $("#item-name").keypress(function (e) {
     if (e.keyCode == 13) {
+        e.preventDefault();
         mySearch();
+    }
+});
+$("#client-id").keypress(function (e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+        client_mySearch();
+    }
+});
+$("#client-name").keypress(function (e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+        client_mySearch();
     }
 });
 
@@ -74,7 +97,51 @@ function mySearch() {
     }
 }
 
+function client_mySearch() {
+    var str = "";
+    if ($("#client-id").val() == "" && $("#client-name").val() == "") {
+        alert("請輸入資料以供查詢!");
+    } else {
+        if ($("#client-id").val() != "") {
+            if (allClient.hasOwnProperty($("#client-id").val())) {
+                str += `
+                <tr>
+                    <td>
+                        <button class="btn btn-warning client_submitProduct" data-id="${allClient[$("#client-id").val()].id}">添加</button>
+                    </td>
+                    <td>${allClient[$("#client-id").val()].id}</td>
+                    <td>${allClient[$("#client-id").val()].name}</td>
+                </tr>
+                `;
+            }
+        }
+        if ($("#client-name").val() != "") {
+            for (var key in allClient) {
+                if (allClient.hasOwnProperty(key)) {
+                    if (allClient[key].name.indexOf($("#client-name").val()) != -1) {
+                        str += `
+                        <tr>
+                            <td>
+                                <button class="btn btn-warning client_submitProduct" data-id="${allClient[key].id}">添加</button>
+                            </td>
+                            <td>${allClient[key].id}</td>
+                            <td>${allClient[key].name}</td>
+                        </tr>
+                        `;
+                    }
+                }
+            }
+        }
+        if (str == "") {
+            alert("查無結果，請確認輸入內容正確!");
+        } else {
+            $("#client_searchResult").html(str);
+        }
+    }
+}
+
 $(document).on('click', '.submitProduct', function (e) {
+    e.preventDefault();
     // console.log(e.target.dataset.id);
     if (!isNaN($("#" + e.target.dataset.id).val()) && $("#" + e.target.dataset.id).val() != "") {
         $("#sellProduct").append(
@@ -99,6 +166,18 @@ $(document).on('click', '.submitProduct', function (e) {
     }
 });
 
+$(document).on('click', '.client_submitProduct', function (e) {
+    e.preventDefault();
+    // console.log(e.target.dataset.id);
+    if (e.target.dataset.id != "") {
+        document.querySelector("#sale-clientId").value = allClient[e.target.dataset.id].id;
+        document.querySelector("#sale-clientName").value = allClient[e.target.dataset.id].name;
+        alert("已經客戶資料填入表單");
+    } else{
+        alert("發生未知錯誤，請手動輸入");
+    }
+});
+
 $(document).on('click', '.removeBtn', function (e) {
     if (confirm("確定要刪除嗎?")) {
         $("tr").remove("." + e.target.dataset.id);
@@ -107,6 +186,7 @@ $(document).on('click', '.removeBtn', function (e) {
 });
 
 function updateTotalPrice() {
+    // 當添加/刪除時，重新計算售出總額
     var totalPrice = 0;
     $(".itemAmountPrice").each(function () {
         // console.log($(this).text());
@@ -117,16 +197,20 @@ function updateTotalPrice() {
 }
 
 function autoFillInFormPrice(totalPrice) {
+    // 將售出商品總額填入表單中的銷貨金額
     document.querySelector("#sale-salesAmount").value = totalPrice;
 }
 
 function updateFormPrice() {
+    // 折讓金額、含稅金額計算
+    // Event keypress 綁在 inline 上
     document.querySelector("#sale-amountAfterDis").value = parseFloat(document.querySelector("#sale-salesAmount").value) - parseFloat(document.querySelector("#sale-salesDiscount").value);
     document.querySelector("#sale-totalAmount").value = parseFloat(document.querySelector("#sale-amountAfterDis").value) + parseFloat(document.querySelector("#sale-tax").value);
 }
 
 
 function createSell(e) {
+    // 先儲存銷貨單資料，再儲存售出的商品資訊
     e.preventDefault();
     var validate = validateData();
     if (validate) {
@@ -176,6 +260,7 @@ function createSell(e) {
 }
 
 function getSoldProduct() {
+    // 取得表單中的售出商品資訊
     var tmpProducts = {};
     var itemId = document.querySelectorAll(".itemId");
     var itemName = document.querySelectorAll(".itemName");
