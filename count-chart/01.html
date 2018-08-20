@@ -116,7 +116,11 @@
     <div class="container">
         <h1 class="mb-3">客戶年度銷售金額統計表</h1>
         <p class="p-2 bg-warning">
-            尚須確認客戶編號的產生規則，以便範圍搜尋。
+            1. 尚須確認客戶編號的產生規則，以便範圍搜尋。
+            <br>
+            2. 銷售金額的計算是根據「銷貨日期」還是「結帳日期」。
+            <br>
+            3. 承上，統計結果目前根據「銷貨日期」。
         </p>
         <form autocomplete="off">
             <div class="form-group row">
@@ -140,11 +144,11 @@
             <div class="form-group row">
                 <label for="count-year" class="col-sm-2 col-form-label">年度</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="count-year">
+                    <input type="number" class="form-control" id="count-year" required placeholder="請填入完整年份 ex: 2018">
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary mb-2 mr-2">查詢</button>
+                <button id="subBtn" class="btn btn-primary mb-2 mr-2">查詢</button>
                 <button class="btn btn-danger mb-2">取消</button>
             </div>
         </form>
@@ -154,14 +158,10 @@
         <hr> © 2018 勤工企業有限公司版權所有.
     </footer>
 
-
-
-
-
-
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="./js/01.js"></script>
 </body>
 
 </html>

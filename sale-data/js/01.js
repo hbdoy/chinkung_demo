@@ -172,6 +172,7 @@ $(document).on('click', '.client_submitProduct', function (e) {
     if (e.target.dataset.id != "") {
         document.querySelector("#sale-clientId").value = allClient[e.target.dataset.id].id;
         document.querySelector("#sale-clientName").value = allClient[e.target.dataset.id].name;
+        document.querySelector("#sale-deliveryAddr").value = allClient[e.target.dataset.id].deliveryAddr;
         alert("已經客戶資料填入表單");
     } else{
         alert("發生未知錯誤，請手動輸入");
