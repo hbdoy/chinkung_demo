@@ -19,35 +19,36 @@ $("#createBtn").click(createSell);
 // 搜尋產品/客戶
 $("#searchBtn").click(mySearch);
 $("#client_searchBtn").click(client_mySearch);
-$("#item-key").keypress(function (e) {
-    if (e.keyCode == 13) {
-        e.preventDefault();
+$("#item-key").keyup(function (e) {
+    // if (e.keyCode == 13) {
+        // e.preventDefault();
         mySearch();
-    }
+    // }
 });
-$("#item-name").keypress(function (e) {
-    if (e.keyCode == 13) {
-        e.preventDefault();
+$("#item-name").keyup(function (e) {
+    // if (e.keyCode == 13) {
+        // e.preventDefault();
         mySearch();
-    }
+    // }
 });
-$("#client-id").keypress(function (e) {
-    if (e.keyCode == 13) {
-        e.preventDefault();
+$("#client-id").keyup(function (e) {
+    // if (e.keyCode == 13) {
+        // e.preventDefault();
         client_mySearch();
-    }
+    // }
 });
-$("#client-name").keypress(function (e) {
-    if (e.keyCode == 13) {
-        e.preventDefault();
+$("#client-name").keyup(function (e) {
+    // if (e.keyCode == 13) {
+        // e.preventDefault();
         client_mySearch();
-    }
+    // }
 });
 
 function mySearch() {
     var str = "";
     if ($("#item-key").val() == "" && $("#item-name").val() == "") {
-        alert("請輸入資料以供查詢!");
+        $("#searchResult").html("請輸入資料以供查詢!");
+        // alert("請輸入資料以供查詢!");
     } else {
         if ($("#item-key").val() != "") {
             if (allData.hasOwnProperty($("#item-key").val())) {
@@ -90,7 +91,8 @@ function mySearch() {
             }
         }
         if (str == "") {
-            alert("查無結果，請確認輸入內容正確!");
+            $("#searchResult").html("查無結果，請確認輸入內容正確!");
+            // alert("查無結果，請確認輸入內容正確!");
         } else {
             $("#searchResult").html(str);
         }
@@ -100,7 +102,8 @@ function mySearch() {
 function client_mySearch() {
     var str = "";
     if ($("#client-id").val() == "" && $("#client-name").val() == "") {
-        alert("請輸入資料以供查詢!");
+        $("#client_searchResult").html("請輸入資料以供查詢!");
+        // alert("請輸入資料以供查詢!");
     } else {
         if ($("#client-id").val() != "") {
             if (allClient.hasOwnProperty($("#client-id").val())) {
@@ -133,7 +136,8 @@ function client_mySearch() {
             }
         }
         if (str == "") {
-            alert("查無結果，請確認輸入內容正確!");
+            $("#client_searchResult").html("查無結果，請確認輸入內容正確!");
+            // alert("查無結果，請確認輸入內容正確!");
         } else {
             $("#client_searchResult").html(str);
         }
