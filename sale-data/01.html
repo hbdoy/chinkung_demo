@@ -120,46 +120,56 @@
             <br> 表單中銷貨、折讓、含稅金額，系統會根據 : 銷貨折讓、稅額，自動計算填入，不開放修改。
             <br> 須確認稅額是加上去總價還是減去
         </p>
-        <div class="card card-body mb-3">
-            <form autocomplete="off">
-                <div class="form-group row">
-                    <label for="item-key" class="col-sm-2 col-form-label">商品編號</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="item-key" placeholder="編號/名稱擇一搜尋即可">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="item-name" class="col-sm-2 col-form-label">商品名稱</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="item-name" placeholder="編號/名稱擇一搜尋即可">
-                    </div>
-                </div>
-            </form>
-            <button class="btn btn-success mb-3" type="button" id="searchBtn">
-                搜尋
-            </button>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">操作</th>
-                            <th scope="col">商品編號</th>
-                            <th scope="col">商品名稱</th>
-                            <th scope="col">單位</th>
-                            <th scope="col">售價</th>
-                            <th scope="col">實際售價</th>
-                            <th scope="col">數量</th>
-                        </tr>
-                    </thead>
-                    <tbody id="searchResult">
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#searchProduct" aria-expanded="false"
+            aria-controls="saleProducts">
+            點我搜尋產品
+        </button>
         <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#saleProducts" aria-expanded="false"
             aria-controls="saleProducts">
-            點我查看銷售商品
+            查看售出產品
         </button>
+        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#searchCustom" aria-expanded="false"
+            aria-controls="searchCustom">
+            點我搜尋客戶資料
+        </button>
+        <div class="collapse" id="searchProduct">
+            <div class="card card-body mb-3">
+                <form autocomplete="off">
+                    <div class="form-group row">
+                        <label for="item-key" class="col-sm-2 col-form-label">商品編號</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="item-key" placeholder="編號/名稱擇一搜尋即可">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="item-name" class="col-sm-2 col-form-label">商品名稱</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="item-name" placeholder="編號/名稱擇一搜尋即可">
+                        </div>
+                    </div>
+                </form>
+                <button class="btn btn-success mb-3" type="button" id="searchBtn">
+                    搜尋
+                </button>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">操作</th>
+                                <th scope="col">商品編號</th>
+                                <th scope="col">商品名稱</th>
+                                <th scope="col">單位</th>
+                                <th scope="col">售價</th>
+                                <th scope="col">實際售價</th>
+                                <th scope="col">數量</th>
+                            </tr>
+                        </thead>
+                        <tbody id="searchResult">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="collapse mb-3" id="saleProducts">
             <div class="card card-body">
                 <div class="table-responsive">
@@ -188,25 +198,9 @@
         </div>
 
         <form autocomplete="off">
-            <div class="form-group row">
-                <label for="sale-id" class="col-sm-2 col-form-label">銷貨單號</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-id" required>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="sale-date" class="col-sm-2 col-form-label">銷貨日期</label>
-                <div class="col-sm-10">
-                    <input type="date" class="form-control" id="sale-date" required>
-                </div>
-            </div>
-            <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#searchCustom" aria-expanded="false"
-                aria-controls="searchCustom">
-                點我搜尋客戶資料
-            </button>
             <div class="card card-body mb-3">
                 <div class="row">
-                    <label for="client-quick-id" class="col-sm-2 col-form-label bg-info text-white">(快速添加)</label>
+                    <label for="client-quick-id" class="col-sm-2 col-form-label bg-info text-white mb-2 mb-md-0">(快速添加)</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="client-quick-id" placeholder="請輸入客戶完整編號">
                     </div>
@@ -246,83 +240,142 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-clientId" class="col-sm-2 col-form-label">客戶編號</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sale-clientId" disabled>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-clientId" class="col-sm-3 col-form-label">客戶編號</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sale-clientId" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-clientName" class="col-sm-3 col-form-label">客戶名稱</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sale-clientName" disabled>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-clientName" class="col-sm-2 col-form-label">客戶名稱</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sale-clientName" disabled>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-id" class="col-sm-3 col-form-label">銷貨單號</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="sale-id" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-date" class="col-sm-3 col-form-label">銷貨日期</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" id="sale-date" required>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-checkoutDay" class="col-sm-2 col-form-label">結帳日</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-checkoutDay">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-checkoutDay" class="col-sm-3 col-form-label">結帳日</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="sale-checkoutDay">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-checkoutMonth" class="col-sm-3 col-form-label">結帳月份</label>
+                        <div class="col-sm-9">
+                            <input type="month" class="form-control" id="sale-checkoutMonth">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-checkoutMonth" class="col-sm-2 col-form-label">結帳月份</label>
-                <div class="col-sm-10">
-                    <input type="month" class="form-control" id="sale-checkoutMonth">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-deliveryAddr" class="col-sm-3 col-form-label">送貨地址</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sale-deliveryAddr">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-invoiceNum" class="col-sm-3 col-form-label">發票號碼</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sale-invoiceNum">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-deliveryAddr" class="col-sm-2 col-form-label">送貨地址</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sale-deliveryAddr">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-salesAmount" class="col-sm-3 col-form-label">銷貨金額</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="sale-salesAmount" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-salesDiscount" class="col-sm-3 col-form-label">銷貨折讓</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="sale-salesDiscount" onkeyup="updateFormPrice()" value="0">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-invoiceNum" class="col-sm-2 col-form-label">發票號碼</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sale-invoiceNum">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-amountAfterDis" class="col-sm-3 col-form-label">折讓後金額</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="sale-amountAfterDis" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-taxation" class="col-sm-3 col-form-label">稅別</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sale-taxation">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-salesAmount" class="col-sm-2 col-form-label">銷貨金額</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-salesAmount" disabled>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-tax" class="col-sm-3 col-form-label">稅額</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="sale-tax" onkeyup="updateFormPrice()" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-totalAmount" class="col-sm-3 col-form-label">含稅總額</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="sale-totalAmount" disabled>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="sale-salesDiscount" class="col-sm-2 col-form-label">銷貨折讓</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-salesDiscount" onkeyup="updateFormPrice()" value="0">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label for="sale-note" class="col-sm-3 col-form-label">備註</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="sale-note">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <label for="sale-amountAfterDis" class="col-sm-2 col-form-label">折讓後金額</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-amountAfterDis" disabled>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="sale-taxation" class="col-sm-2 col-form-label">稅別</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sale-taxation">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="sale-tax" class="col-sm-2 col-form-label">稅額</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-tax" onkeyup="updateFormPrice()" value="0">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="sale-totalAmount" class="col-sm-2 col-form-label">含稅總額</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="sale-totalAmount" disabled>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="sale-note" class="col-sm-2 col-form-label">備註</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sale-note">
-                </div>
+                <div class="col-md-6"></div>
             </div>
             <div class="text-center">
                 <button id="createBtn" class="btn btn-primary mb-2 mr-2">建立</button>
