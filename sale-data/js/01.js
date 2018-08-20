@@ -52,7 +52,10 @@ function mySearch() {
                     <td>${allData[$("#item-key").val()].unit}</td>
                     <td>${allData[$("#item-key").val()].price}</td>
                     <td>
-                        <input type="number" id="${allData[$("#item-key").val()].id}" required>
+                        <input type="number" id="m${allData[$('#item-key').val()].id}" required>
+                    </td>
+                    <td>
+                        <input type="number" id="n${allData[$('#item-key').val()].id}" required>
                     </td>
                 </tr>
                 `;
@@ -72,7 +75,10 @@ function mySearch() {
                             <td>${allData[key].unit}</td>
                             <td>${allData[key].price}</td>
                             <td>
-                                <input type="number" id="${allData[key].id}" required>
+                                <input type="number" id="m${allData[key].id}" required>
+                            </td>
+                            <td>
+                                <input type="number" id="n${allData[key].id}" required>
                             </td>
                         </tr>
                         `;
@@ -134,7 +140,7 @@ function client_mySearch() {
 $(document).on('click', '.submitProduct', function (e) {
     e.preventDefault();
     // console.log(e.target.dataset.id);
-    if (!isNaN($("#" + e.target.dataset.id).val()) && $("#" + e.target.dataset.id).val() != "") {
+    if (!isNaN($("#m" + e.target.dataset.id).val()) && $("#m" + e.target.dataset.id).val() != "" && !isNaN($("#n" + e.target.dataset.id).val()) && $("#n" + e.target.dataset.id).val() != "") {
         $("#sellProduct").append(
             `
             <tr class="${allData[e.target.dataset.id].id}">
@@ -144,16 +150,17 @@ $(document).on('click', '.submitProduct', function (e) {
                 <td class="itemId">${allData[e.target.dataset.id].id}</td>
                 <td class="itemName">${allData[e.target.dataset.id].name}</td>
                 <td class="itemUnit">${allData[e.target.dataset.id].unit}</td>
-                <td class="itemNum">${$("#" + e.target.dataset.id).val()}</td>
+                <td class="itemNum">${$("#n" + e.target.dataset.id).val()}</td>
                 <td class="itemPrice">${allData[e.target.dataset.id].price}</td>
-                <td class="itemAmountPrice">${$("#" + e.target.dataset.id).val() * allData[e.target.dataset.id].price}</td>
+                <td class="itemFinalPrice">${$("#m" + e.target.dataset.id).val()}</td>
+                <td class="itemAmountPrice">${$("#n" + e.target.dataset.id).val() * $("#m" + e.target.dataset.id).val()}</td>
             </tr>
         `
         );
         updateTotalPrice();
         alert("添加成功，請點擊查看銷售商品");
     } else {
-        alert("請輸入商品數量")
+        alert("請輸入實際售價和商品數量")
     }
 });
 
@@ -164,6 +171,7 @@ $(document).on('click', '.client_submitProduct', function (e) {
         document.querySelector("#sale-clientId").value = allClient[e.target.dataset.id].id;
         document.querySelector("#sale-clientName").value = allClient[e.target.dataset.id].name;
         document.querySelector("#sale-deliveryAddr").value = allClient[e.target.dataset.id].deliveryAddr;
+        document.querySelector("#sale-checkoutDay").value = allClient[e.target.dataset.id].checkoutDay;
         alert("已經客戶資料填入表單");
     } else {
         alert("發生未知錯誤，請手動輸入");
@@ -183,6 +191,7 @@ function quickAddCustomData() {
             document.querySelector("#sale-clientId").value = allClient[$("#client-quick-id").val()].id;
             document.querySelector("#sale-clientName").value = allClient[$("#client-quick-id").val()].name;
             document.querySelector("#sale-deliveryAddr").value = allClient[$("#client-quick-id").val()].deliveryAddr;
+            document.querySelector("#sale-checkoutDay").value = allClient[$("#client-quick-id").val()].checkoutDay;
         }
     }
 }
