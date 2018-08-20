@@ -20,35 +20,25 @@ $("#createBtn").click(createSell);
 $("#searchBtn").click(mySearch);
 $("#client_searchBtn").click(client_mySearch);
 $("#item-key").keyup(function (e) {
-    // if (e.keyCode == 13) {
-        // e.preventDefault();
-        mySearch();
-    // }
+    mySearch();
 });
 $("#item-name").keyup(function (e) {
-    // if (e.keyCode == 13) {
-        // e.preventDefault();
-        mySearch();
-    // }
+    mySearch();
 });
 $("#client-id").keyup(function (e) {
-    // if (e.keyCode == 13) {
-        // e.preventDefault();
-        client_mySearch();
-    // }
+    client_mySearch();
 });
 $("#client-name").keyup(function (e) {
-    // if (e.keyCode == 13) {
-        // e.preventDefault();
-        client_mySearch();
-    // }
+    client_mySearch();
+});
+$("#client-quick-id").keyup(function (e) {
+    quickAddCustomData();
 });
 
 function mySearch() {
     var str = "";
     if ($("#item-key").val() == "" && $("#item-name").val() == "") {
         $("#searchResult").html("請輸入資料以供查詢!");
-        // alert("請輸入資料以供查詢!");
     } else {
         if ($("#item-key").val() != "") {
             if (allData.hasOwnProperty($("#item-key").val())) {
@@ -92,7 +82,6 @@ function mySearch() {
         }
         if (str == "") {
             $("#searchResult").html("查無結果，請確認輸入內容正確!");
-            // alert("查無結果，請確認輸入內容正確!");
         } else {
             $("#searchResult").html(str);
         }
@@ -103,7 +92,6 @@ function client_mySearch() {
     var str = "";
     if ($("#client-id").val() == "" && $("#client-name").val() == "") {
         $("#client_searchResult").html("請輸入資料以供查詢!");
-        // alert("請輸入資料以供查詢!");
     } else {
         if ($("#client-id").val() != "") {
             if (allClient.hasOwnProperty($("#client-id").val())) {
@@ -137,7 +125,6 @@ function client_mySearch() {
         }
         if (str == "") {
             $("#client_searchResult").html("查無結果，請確認輸入內容正確!");
-            // alert("查無結果，請確認輸入內容正確!");
         } else {
             $("#client_searchResult").html(str);
         }
@@ -178,7 +165,7 @@ $(document).on('click', '.client_submitProduct', function (e) {
         document.querySelector("#sale-clientName").value = allClient[e.target.dataset.id].name;
         document.querySelector("#sale-deliveryAddr").value = allClient[e.target.dataset.id].deliveryAddr;
         alert("已經客戶資料填入表單");
-    } else{
+    } else {
         alert("發生未知錯誤，請手動輸入");
     }
 });
@@ -189,6 +176,16 @@ $(document).on('click', '.removeBtn', function (e) {
         updateTotalPrice();
     }
 });
+
+function quickAddCustomData() {
+    if ($("#client-quick-id").val() != "") {
+        if (allClient.hasOwnProperty($("#client-quick-id").val())) {
+            document.querySelector("#sale-clientId").value = allClient[$("#client-quick-id").val()].id;
+            document.querySelector("#sale-clientName").value = allClient[$("#client-quick-id").val()].name;
+            document.querySelector("#sale-deliveryAddr").value = allClient[$("#client-quick-id").val()].deliveryAddr;
+        }
+    }
+}
 
 function updateTotalPrice() {
     // 當添加/刪除時，重新計算售出總額
