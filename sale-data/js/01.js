@@ -238,48 +238,83 @@ function createSell(e) {
     var validate = validateData();
     if (validate) {
         if (confirm("確定要建立?")) {
-            db.ref("/sell/" + document.querySelector("#sale-id").value).set({
-                id: document.querySelector("#sale-id").value,
-                date: document.querySelector("#sale-date").value,
-                clientId: document.querySelector("#sale-clientId").value,
-                clientName: document.querySelector("#sale-clientName").value,
-                checkoutDay: document.querySelector("#sale-checkoutDay").value,
-                checkoutMonth: document.querySelector("#sale-checkoutMonth").value,
-                deliveryAddr: document.querySelector("#sale-deliveryAddr").value,
-                invoiceNum: document.querySelector("#sale-invoiceNum").value,
-                salesAmount: document.querySelector("#sale-salesAmount").value,
-                salesDiscount: document.querySelector("#sale-salesDiscount").value,
-                amountAfterDis: document.querySelector("#sale-amountAfterDis").value,
-                taxation: document.querySelector("#sale-taxation").value,
-                tax: document.querySelector("#sale-tax").value,
-                totalAmount: document.querySelector("#sale-totalAmount").value,
-                note: document.querySelector("#sale-note").value,
-            }).then(function () {
-                // console.log("OKOK");
-                var tmpProducts = getSoldProduct();
-                for (var key in tmpProducts) {
-                    if (tmpProducts.hasOwnProperty(key)) {
-                        // console.log(tmpProducts[key]);
-                        db.ref("/sell/" + document.querySelector("#sale-id").value + "/product/" + key).set({
-                            id: key,
-                            name: tmpProducts[key].name,
-                            unit: tmpProducts[key].unit,
-                            num: tmpProducts[key].num,
-                            price: tmpProducts[key].price,
-                        })
-                    }
+            var myId = document.querySelector("#sale-id").value;
+            getLastSellId().then(lastId => {
+                if(lastId >= myId){
+                    myId = parseInt(lastId) + 1;
                 }
-            }).then(function () {
-                alert("建立成功");
-                setTimeout(function () {
-                    location.reload();
-                }, 500);
-            }).catch(function () {
-                // console.log("some error");
-                alert("伺服器發生錯誤，請稍後再試");
+                db.ref("/sell/" + myId).set({
+                    id: myId,
+                    date: document.querySelector("#sale-date").value,
+                    clientId: document.querySelector("#sale-clientId").value,
+                    clientName: document.querySelector("#sale-clientName").value,
+                    checkoutDay: document.querySelector("#sale-checkoutDay").value,
+                    checkoutMonth: document.querySelector("#sale-checkoutMonth").value,
+                    deliveryAddr: document.querySelector("#sale-deliveryAddr").value,
+                    invoiceNum: document.querySelector("#sale-invoiceNum").value,
+                    salesAmount: document.querySelector("#sale-salesAmount").value,
+                    salesDiscount: document.querySelector("#sale-salesDiscount").value,
+                    amountAfterDis: document.querySelector("#sale-amountAfterDis").value,
+                    taxation: document.querySelector("#sale-taxation").value,
+                    tax: document.querySelector("#sale-tax").value,
+                    totalAmount: document.querySelector("#sale-totalAmount").value,
+                    note: document.querySelector("#sale-note").value,
+                }).then(function () {
+                    // console.log("OKOK");
+                    var tmpProducts = getSoldProduct();
+                    for (var key in tmpProducts) {
+                        if (tmpProducts.hasOwnProperty(key)) {
+                            // console.log(tmpProducts[key]);
+                            db.ref("/sell/" + myId + "/product/" + key).set({
+                                id: key,
+                                name: tmpProducts[key].name,
+                                unit: tmpProducts[key].unit,
+                                num: tmpProducts[key].num,
+                                price: tmpProducts[key].price,
+                            })
+                        }
+                    }
+                }).then(function () {
+                    alert("建立成功");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
+                }).catch(function () {
+                    // console.log("some error");
+                    alert("伺服器發生錯誤，請稍後再試");
+                });
             });
         }
     }
+}
+
+function getLastSellId() {
+    return new Promise(function (resolve, reject) {
+        db.ref('/sell').orderByKey().limitToLast(1).once('value', function (snapshot) {
+                var sell = snapshot.val();
+                for (var key in sell) {
+                    if (sell.hasOwnProperty(key)) {
+                        resolve(sell[key].id);
+                    }
+                }
+            })
+            .catch(e => {
+                reject("error" + e);
+            });
+    });
+}
+
+function newSellId() {
+    return new Promise(function (resolve, reject) {
+        getLastSellId().then(id => {
+            if (id.substr(0, 8) < dateFormat(8, 2)) {
+                // 今日最新單
+                resolve(dateFormat(8, 2).toString() + "001");
+            } else {
+                resolve(parseInt(id) + 1);
+            }
+        });
+    })
 }
 
 function getSoldProduct() {
@@ -304,6 +339,7 @@ function getSoldProduct() {
 
 function validateData() {
     var id = document.querySelector("#sale-id").value;
+    var clientId = document.querySelector("#sale-clientId").value;
     var checkoutDay = document.querySelector("#sale-checkoutDay").value;
     var salesAmount = document.querySelector("#sale-salesAmount").value;
     var salesDiscount = document.querySelector("#sale-salesDiscount").value;
@@ -312,19 +348,30 @@ function validateData() {
     var totalAmount = document.querySelector("#sale-totalAmount").value;
     var notEmpty = (id != "");
     var isNum = !(isNaN(checkoutDay) || isNaN(salesAmount) || isNaN(salesDiscount) || isNaN(amountAfterDis) || isNaN(tax) || isNaN(totalAmount));
-    var basic = salesDiscount != "" && tax != "";
+    var addedProduct = salesAmount != "";
+    var basic = salesDiscount != "" && amountAfterDis != "" && tax != "" && totalAmount != "";
+    var addedClient = clientId != "";
     var validate = true;
     if (!notEmpty) {
         validate = false;
         alert("編號不得為空!");
     }
+    if(!addedClient){
+        validate = false;
+        alert("請添加客戶!");
+    }
     if (!isNum) {
         validate = false;
-        alert("數字欄位僅允許填入數字");
+        alert("數字欄位僅允許填入數字!");
     }
-    if(!basic){
+    if(!addedProduct){
         validate = false;
-        alert("稅額或銷貨折讓不得為空，沒有則為0");
+        alert("請添加售出商品!");
+    } else {
+        if (!basic) {
+            validate = false;
+            alert("稅額或銷貨折讓不得為空，沒有則為0");
+        }
     }
     return validate;
 }
@@ -341,7 +388,7 @@ function DateTimezone(offset) {
     // DateTimezone(8)
 }
 
-function dateFormat(offset) {
+function dateFormat(offset, type = 1) {
     var tmp = DateTimezone(8).split(" ")[0];
     var year = tmp.split("/")[0];
     var month = tmp.split("/")[1];
@@ -352,10 +399,14 @@ function dateFormat(offset) {
     if (day < 10) {
         day = "0" + day.toString();
     }
-    return year.toString() + "-" + month.toString() + "-" + day.toString();
+    if (type == 1) return year.toString() + "-" + month.toString() + "-" + day.toString();
+    else if (type == 2) return year.toString() + month.toString() + day.toString();
 }
 
 function autoFillInDate() {
     // 自動帶入當天日期
     document.querySelector("#sale-date").value = dateFormat(8);
+    newSellId().then(id => {
+        document.querySelector("#sale-id").value = id;
+    });
 }
