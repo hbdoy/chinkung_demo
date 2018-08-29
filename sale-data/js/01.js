@@ -14,6 +14,8 @@ db.ref('/client').once('value', function (snapshot) {
     // console.log(allClient);
 });
 
+autoFillInDate();
+
 $("#createBtn").click(createSell);
 
 // 搜尋產品/客戶
@@ -41,24 +43,28 @@ function mySearch() {
         $("#searchResult").html("請輸入資料以供查詢!");
     } else {
         if ($("#item-key").val() != "") {
-            if (allData.hasOwnProperty($("#item-key").val())) {
-                str += `
-                <tr>
-                    <td>
-                        <button class="btn btn-warning submitProduct" data-id="${allData[$("#item-key").val()].id}">添加</button>
-                    </td>
-                    <td>${allData[$("#item-key").val()].id}</td>
-                    <td>${allData[$("#item-key").val()].name}</td>
-                    <td>${allData[$("#item-key").val()].unit}</td>
-                    <td>${allData[$("#item-key").val()].price}</td>
-                    <td>
-                        <input type="number" id="m${allData[$('#item-key').val()].id}" required>
-                    </td>
-                    <td>
-                        <input type="number" id="n${allData[$('#item-key').val()].id}" required>
-                    </td>
-                </tr>
-                `;
+            for (var key in allData) {
+                if (allData.hasOwnProperty(key)) {
+                    if (key.indexOf($("#item-key").val()) != -1) {
+                        str += `
+                        <tr>
+                            <td>
+                                <button class="btn btn-warning submitProduct" data-id="${allData[key].id}">添加</button>
+                            </td>
+                            <td>${allData[key].id}</td>
+                            <td>${allData[key].name}</td>
+                            <td>${allData[key].unit}</td>
+                            <td>${allData[key].price}</td>
+                            <td>
+                                <input type="number" id="m${allData[key].id}" required>
+                            </td>
+                            <td>
+                                <input type="number" id="n${allData[key].id}" required>
+                            </td>
+                        </tr>
+                        `;
+                    }
+                }
             }
         }
         if ($("#item-name").val() != "") {
@@ -100,16 +106,20 @@ function client_mySearch() {
         $("#client_searchResult").html("請輸入資料以供查詢!");
     } else {
         if ($("#client-id").val() != "") {
-            if (allClient.hasOwnProperty($("#client-id").val())) {
-                str += `
-                <tr>
-                    <td>
-                        <button class="btn btn-warning client_submitProduct" data-id="${allClient[$("#client-id").val()].id}">添加</button>
-                    </td>
-                    <td>${allClient[$("#client-id").val()].id}</td>
-                    <td>${allClient[$("#client-id").val()].name}</td>
-                </tr>
-                `;
+            for (var key in allClient) {
+                if (allClient.hasOwnProperty(key)) {
+                    if (key.indexOf($("#client-id").val()) != -1) {
+                        str += `
+                        <tr>
+                            <td>
+                                <button class="btn btn-warning client_submitProduct" data-id="${allClient[key].id}">添加</button>
+                            </td>
+                            <td>${allClient[key].id}</td>
+                            <td>${allClient[key].name}</td>
+                        </tr>
+                        `;
+                    }
+                }
             }
         }
         if ($("#client-name").val() != "") {
@@ -210,6 +220,7 @@ function updateTotalPrice() {
 function autoFillInFormPrice(totalPrice) {
     // 將售出商品總額填入表單中的銷貨金額
     document.querySelector("#sale-salesAmount").value = totalPrice;
+    document.querySelector("#sale-tax").value = totalPrice * 0.05;
     updateFormPrice();
 }
 
@@ -301,6 +312,7 @@ function validateData() {
     var totalAmount = document.querySelector("#sale-totalAmount").value;
     var notEmpty = (id != "");
     var isNum = !(isNaN(checkoutDay) || isNaN(salesAmount) || isNaN(salesDiscount) || isNaN(amountAfterDis) || isNaN(tax) || isNaN(totalAmount));
+    var basic = salesDiscount != "" && tax != "";
     var validate = true;
     if (!notEmpty) {
         validate = false;
@@ -310,5 +322,40 @@ function validateData() {
         validate = false;
         alert("數字欄位僅允許填入數字");
     }
+    if(!basic){
+        validate = false;
+        alert("稅額或銷貨折讓不得為空，沒有則為0");
+    }
     return validate;
+}
+
+// 新增當地時區的時間物件
+function DateTimezone(offset) {
+    // 建立現在時間的物件
+    d = new Date();
+    // 取得 UTC time
+    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    // 新增不同時區的日期資料
+    return new Date(utc + (3600000 * offset)).toLocaleString();
+    // 8是台北
+    // DateTimezone(8)
+}
+
+function dateFormat(offset) {
+    var tmp = DateTimezone(8).split(" ")[0];
+    var year = tmp.split("/")[0];
+    var month = tmp.split("/")[1];
+    var day = tmp.split("/")[2];
+    if (month < 10) {
+        month = "0" + month.toString();
+    }
+    if (day < 10) {
+        day = "0" + day.toString();
+    }
+    return year.toString() + "-" + month.toString() + "-" + day.toString();
+}
+
+function autoFillInDate() {
+    // 自動帶入當天日期
+    document.querySelector("#sale-date").value = dateFormat(8);
 }
