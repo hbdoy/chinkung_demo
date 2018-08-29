@@ -23,8 +23,8 @@ db.ref('/client').once('value', function (snapshot) {
                 <td>${allData[key].name}</td>
                 <td>${allData[key].principal}</td>
                 <td>${allData[key].phone}</td>
-                <td>${allData[key].email}</td>
-                <td>...</td>
+                <td>${allData[key].fax}</td>
+                <td>${allData[key].uniformNum}</td>
             </tr>`
         }
     }
