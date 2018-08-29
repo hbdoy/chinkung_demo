@@ -307,7 +307,7 @@ function getLastSellId() {
 function newSellId() {
     return new Promise(function (resolve, reject) {
         getLastSellId().then(id => {
-            if (id.substr(0, 8) < dateFormat(8, 2)) {
+            if (id.toString().substr(0, 8) < dateFormat(8, 2)) {
                 // 今日最新單
                 resolve(dateFormat(8, 2).toString() + "001");
             } else {
@@ -324,7 +324,7 @@ function getSoldProduct() {
     var itemName = document.querySelectorAll(".itemName");
     var itemUnit = document.querySelectorAll(".itemUnit");
     var itemNum = document.querySelectorAll(".itemNum");
-    var itemPrice = document.querySelectorAll(".itemPrice");
+    var itemPrice = document.querySelectorAll(".itemFinalPrice");
     for (var i = 0; i < itemId.length; i++) {
         tmpProducts[itemId[i].textContent] = {
             name: itemName[i].textContent,
