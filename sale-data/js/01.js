@@ -259,6 +259,7 @@ function createSell(e) {
                     tax: document.querySelector("#sale-tax").value,
                     totalAmount: document.querySelector("#sale-totalAmount").value,
                     note: document.querySelector("#sale-note").value,
+                    createTime: DateTimezone(8)
                 }).then(function () {
                     // console.log("OKOK");
                     var tmpProducts = getSoldProduct();

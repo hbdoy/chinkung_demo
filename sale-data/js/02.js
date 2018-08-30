@@ -151,6 +151,7 @@ function createReturn(e) {
                 checkoutMonth: document.querySelector("#return-checkoutMonth").value,
                 totalAmount: document.querySelector("#return-totalAmount").value,
                 note: document.querySelector("#return-note").value,
+                createTime: DateTimezone(8)
             }).then(function () {
                 db.ref("/return/" + myId + "/product/").set(returnProduct);
             }).then(function () {

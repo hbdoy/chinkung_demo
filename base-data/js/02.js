@@ -74,6 +74,7 @@ function updateProduct(e) {
                 safeStock: document.querySelector("#item-safeStock").value,
                 cost: document.querySelector("#item-cost").value,
                 note: document.querySelector("#item-note").value,
+                createTime: DateTimezone(8)
             }).then(function () {
                 // console.log("OKOK");
                 alert("修改成功");
@@ -130,4 +131,16 @@ function delItem(id){
             alert("伺服器發生錯誤，請稍後再試");
         });
     }
+}
+
+// 新增當地時區的時間物件
+function DateTimezone(offset) {
+    // 建立現在時間的物件
+    d = new Date();
+    // 取得 UTC time
+    utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    // 新增不同時區的日期資料
+    return new Date(utc + (3600000 * offset)).toLocaleString();
+    // 8是台北
+    // DateTimezone(8)
 }
