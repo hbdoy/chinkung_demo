@@ -79,7 +79,7 @@ function checkReturn() {
     returnProduct = {};
     for (var key in searchReslt.product) {
         if (searchReslt.product.hasOwnProperty(key)) {
-            if(searchReslt.product[key].num < $("#" + key).val()){
+            if(parseInt(searchReslt.product[key].num) < parseInt($("#" + key).val())){
                 returnProduct = "nothing";
                 document.querySelector("#return-totalAmount").value = 0;
                 alert("退回數量大於售出數量!");
@@ -142,7 +142,7 @@ function createReturn(e) {
     if (validate) {
         if (confirm("確定要建立?")) {
             var myId = $("#return-id").val();
-            db.ref("/return/" + myId).set({
+            db.ref("/return/" + myId).push({
                 id: myId,
                 date: document.querySelector("#return-date").value,
                 clientId: document.querySelector("#return-clientId").value,
@@ -151,9 +151,8 @@ function createReturn(e) {
                 checkoutMonth: document.querySelector("#return-checkoutMonth").value,
                 totalAmount: document.querySelector("#return-totalAmount").value,
                 note: document.querySelector("#return-note").value,
+                product: returnProduct,
                 createTime: DateTimezone(8)
-            }).then(function () {
-                db.ref("/return/" + myId + "/product/").set(returnProduct);
             }).then(function () {
                 db.ref("/userLog").push({
                     uid: user.uid,

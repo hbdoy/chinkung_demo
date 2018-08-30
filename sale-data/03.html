@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>商品年度銷售金額統計表</title>
+    <title>銷貨單查詢</title>
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -38,15 +38,16 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="../index.html">勤工</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="baseData" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="baseData" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         基本資料
                     </a>
                     <div class="dropdown-menu" aria-labelledby="baseData">
@@ -59,16 +60,18 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="saleData" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="saleData" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         銷貨管理
                     </a>
                     <div class="dropdown-menu" aria-labelledby="saleData">
                         <a class="dropdown-item" href="../sale-data/01.html">銷貨單輸入作業</a>
-                        <a class="dropdown-item" href="../sale-data/02.html">銷貨退回單作業</a>                         <a class="dropdown-item" href="../sale-data/03.html">銷貨單查詢</a>
+                        <a class="dropdown-item" href="../sale-data/02.html">銷貨退回單作業</a> <a class="dropdown-item" href="../sale-data/03.html">銷貨單查詢</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="countChart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="countChart" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         年度統計報表
                     </a>
                     <div class="dropdown-menu" aria-labelledby="countChart">
@@ -78,7 +81,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="arManage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="arManage" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         應收帳款管理
                     </a>
                     <div class="dropdown-menu" aria-labelledby="arManage">
@@ -94,7 +98,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="rManage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="rManage" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         收款管理系統
                     </a>
                     <div class="dropdown-menu" aria-labelledby="rManage">
@@ -114,41 +119,60 @@
     </nav>
 
     <div class="container">
-        <h1 class="mb-3">商品年度銷售金額統計表</h1>
-        <p class="p-2 bg-warning">
-            尚須確認商品編號的產生規則，以便範圍搜尋。
-        </p>
-        <form autocomplete="off">
-            <div class="form-group row">
-                <label for="count-itemId1" class="col-sm-2 col-form-label">成品編號</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="count-itemId1" placeholder="50D-BCS-64A">
-                </div>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="count-itemName1" placeholder="2.5T 平夾">
+        <h1 class="mb-3">銷貨單查詢</h1>
+        <div class="table-responsive mb-3" style="max-height: 380px">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">操作</th>
+                        <th scope="col">銷貨單號</th>
+                        <th scope="col">客戶編號</th>
+                        <th scope="col">客戶名稱</th>
+                        <th scope="col">含稅總額</th>
+                        <th scope="col">銷貨日期</th>
+                        <th scope="col">備註</th>
+                        <th scope="col">售出商品</th>
+                    </tr>
+                </thead>
+                <tbody id="searchResult">
+                </tbody>
+            </table>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">售出商品</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">商品編號</th>
+                                        <th scope="col">商品名稱</th>
+                                        <th scope="col">單位</th>
+                                        <th scope="col">數量</th>
+                                        <th scope="col">單價</th>
+                                        <th scope="col">退回數量</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sellProduct">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="count-itemId2" class="col-sm-2 col-form-label">(範圍搜尋)</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="count-itemId2" placeholder="Z000221">
-                </div>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="count-itemName2" placeholder="整修開關排">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="count-year" class="col-sm-2 col-form-label">年度</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="count-year">
-                </div>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary mb-2 mr-2">查詢</button>
-                <button class="btn btn-danger mb-2">取消</button>
-            </div>
-        </form>
+        </div>
     </div>
+
 
     <footer class="container-fluid px-3 pb-5  text-center">
         <hr> © 2018 勤工企業有限公司版權所有.
