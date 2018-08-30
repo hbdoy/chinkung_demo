@@ -78,11 +78,18 @@ function updateVendor(e) {
                 note: document.querySelector("#vendor-note").value,
                 createTime: DateTimezone(8)
             }).then(function () {
-                // console.log("OKOK");
-                alert("修改成功");
-                setTimeout(function () {
-                    location.reload();
-                }, 500);
+                db.ref("/userLog").push({
+                    uid: user.uid,
+                    email: user.email,
+                    type: "廠商資料修改",
+                    createTime: DateTimezone(8)
+                }).then(function(){
+                    // console.log("OKOK");
+                    alert("修改成功");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
+                });
             }).catch(function () {
                 // console.log("some error");
                 alert("伺服器發生錯誤，請稍後再試");
@@ -119,11 +126,18 @@ function delItem(id) {
     if (confirm("確定要刪除嗎?")) {
         db.ref("/vendor/" + id).remove()
             .then(function () {
-                // console.log("OKOK");
-                alert("刪除成功");
-                setTimeout(function () {
-                    location.reload();
-                }, 500);
+                db.ref("/userLog").push({
+                    uid: user.uid,
+                    email: user.email,
+                    type: "廠商資料刪除",
+                    createTime: DateTimezone(8)
+                }).then(function(){
+                    // console.log("OKOK");
+                    alert("刪除成功");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
+                });
             }).catch(function () {
                 // console.log("some error");
                 alert("伺服器發生錯誤，請稍後再試");

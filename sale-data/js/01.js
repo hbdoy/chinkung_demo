@@ -276,10 +276,18 @@ function createSell(e) {
                         }
                     }
                 }).then(function () {
-                    alert("建立成功");
-                    setTimeout(function () {
-                        location.reload();
-                    }, 500);
+                    db.ref("/userLog").push({
+                        uid: user.uid,
+                        email: user.email,
+                        type: "銷貨單建立",
+                        createTime: DateTimezone(8)
+                    }).then(function(){
+                        // console.log("OKOK");
+                        alert("建立成功");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 500);
+                    });
                 }).catch(function () {
                     // console.log("some error");
                     alert("伺服器發生錯誤，請稍後再試");
