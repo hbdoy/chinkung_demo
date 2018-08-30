@@ -38,15 +38,16 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="../index.html">勤工</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="baseData" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="baseData" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         基本資料
                     </a>
                     <div class="dropdown-menu" aria-labelledby="baseData">
@@ -59,7 +60,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="saleData" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="saleData" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         銷貨管理
                     </a>
                     <div class="dropdown-menu" aria-labelledby="saleData">
@@ -68,7 +70,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="countChart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="countChart" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         年度統計報表
                     </a>
                     <div class="dropdown-menu" aria-labelledby="countChart">
@@ -78,7 +81,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="arManage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="arManage" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         應收帳款管理
                     </a>
                     <div class="dropdown-menu" aria-labelledby="arManage">
@@ -94,7 +98,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="rManage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="rManage" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         收款管理系統
                     </a>
                     <div class="dropdown-menu" aria-labelledby="rManage">
@@ -116,27 +121,44 @@
     <div class="container">
         <h1 class="mb-3">銷貨退回單作業</h1>
         <p class="bg-warning p-2">
-            1. 此頁面還須確認此單中的銷售商品是否是全部退回，還是能夠選擇需要刪減的商品/數量。
-            <br>
-            2. 以及銷貨退回的作業流程(包含是否建立退回單的資料庫，還是能夠直接從銷貨單中扣除退回的商品即可)
+            1. 此頁面還須確認退回總額是根據商品單價計算就好，還是需要考慮稅額。
         </p>
-        <div class="table-responsive mb-3" style="max-height: 300px">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">操作</th>
-                        <th scope="col">銷貨單號</th>
-                        <th scope="col">客戶名稱</th>
-                        <th scope="col">含稅總額</th>
-                        <th scope="col">銷貨日期</th>
-                    </tr>
-                </thead>
-                <tbody id="dataList">
-                </tbody>
-            </table>
+        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#searchSell"
+            aria-expanded="false" aria-controls="searchSell">
+            點我搜尋銷貨單
+        </button>
+        <div class="collapse" id="searchSell">
+            <div class="card card-body mb-3">
+                <form autocomplete="off">
+                    <div class="form-group row">
+                        <label for="sell-key" class="col-sm-2 col-form-label">銷貨單號</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="sell-key" placeholder="編號/名稱擇一搜尋即可">
+                        </div>
+                    </div>
+                </form>
+                <button class="btn btn-success mb-3" type="button" id="searchBtn">
+                    搜尋
+                </button>
+                <div class="table-responsive mb-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">操作</th>
+                                <th scope="col">銷貨單號</th>
+                                <th scope="col">客戶名稱</th>
+                                <th scope="col">含稅總額</th>
+                                <th scope="col">銷貨日期</th>
+                            </tr>
+                        </thead>
+                        <tbody id="searchResult">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#saleProducts" aria-expanded="false"
-            aria-controls="saleProducts">
+        <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#saleProducts"
+            aria-expanded="false" aria-controls="saleProducts">
             查看銷售商品
         </button>
         <div class="collapse mb-3" id="saleProducts">
@@ -145,23 +167,19 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">操作</th>
                                 <th scope="col">商品編號</th>
                                 <th scope="col">商品名稱</th>
                                 <th scope="col">單位</th>
                                 <th scope="col">數量</th>
                                 <th scope="col">單價</th>
-                                <th scope="col">小計</th>
+                                <th scope="col">退回數量</th>
                             </tr>
                         </thead>
                         <tbody id="sellProduct">
                         </tbody>
                     </table>
                 </div>
-                <div class="font-weight-bold">
-                    總計:
-                    <span id="totalPrice">0</span>
-                </div>
+                <button id="returnBtn" class="btn btn-danger">退回商品</button>
             </div>
         </div>
 
@@ -215,7 +233,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <button class="btn btn-primary mb-2 mr-2">建立(還須確認)</button>
+                <button id="subBtn" class="btn btn-primary mb-2 mr-2">建立</button>
                 <button class="btn btn-danger mb-2">取消</button>
             </div>
         </form>
