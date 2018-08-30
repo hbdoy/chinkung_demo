@@ -150,10 +150,14 @@ function client_mySearch() {
 $(document).on('click', '.submitProduct', function (e) {
     e.preventDefault();
     // console.log(e.target.dataset.id);
-    if (!isNaN($("#m" + e.target.dataset.id).val()) && $("#m" + e.target.dataset.id).val() != "" && !isNaN($("#n" + e.target.dataset.id).val()) && $("#n" + e.target.dataset.id).val() != "") {
-        $("#sellProduct").append(
-            `
-            <tr class="${allData[e.target.dataset.id].id}">
+    if (document.querySelectorAll(`.norep${e.target.dataset.id}`).length >= 1) {
+        alert("同樣的商品請勿分開添加!");
+        return;
+    } else {
+        if (!isNaN($("#m" + e.target.dataset.id).val()) && $("#m" + e.target.dataset.id).val() != "" && !isNaN($("#n" + e.target.dataset.id).val()) && $("#n" + e.target.dataset.id).val() != "") {
+            $("#sellProduct").append(
+                `
+            <tr class="norep${allData[e.target.dataset.id].id}">
                 <td>
                     <button class="btn btn-danger removeBtn" data-id="${allData[e.target.dataset.id].id}">刪除</button>
                 </td>
@@ -166,11 +170,12 @@ $(document).on('click', '.submitProduct', function (e) {
                 <td class="itemAmountPrice">${$("#n" + e.target.dataset.id).val() * $("#m" + e.target.dataset.id).val()}</td>
             </tr>
         `
-        );
-        updateTotalPrice();
-        alert("添加成功，請點擊查看銷售商品");
-    } else {
-        alert("請輸入實際售價和商品數量")
+            );
+            updateTotalPrice();
+            alert("添加成功，請點擊查看銷售商品");
+        } else {
+            alert("請輸入實際售價和商品數量")
+        }
     }
 });
 
@@ -240,7 +245,7 @@ function createSell(e) {
         if (confirm("確定要建立?")) {
             var myId = document.querySelector("#sale-id").value;
             getLastSellId().then(lastId => {
-                if(lastId >= myId){
+                if (lastId >= myId) {
                     myId = parseInt(lastId) + 1;
                 }
                 db.ref("/sell/" + myId).set({
@@ -281,7 +286,7 @@ function createSell(e) {
                         email: user.email,
                         type: "銷貨單建立",
                         createTime: DateTimezone(8)
-                    }).then(function(){
+                    }).then(function () {
                         // console.log("OKOK");
                         alert("建立成功");
                         setTimeout(function () {
@@ -365,7 +370,7 @@ function validateData() {
         validate = false;
         alert("編號不得為空!");
     }
-    if(!addedClient){
+    if (!addedClient) {
         validate = false;
         alert("請添加客戶!");
     }
@@ -373,7 +378,7 @@ function validateData() {
         validate = false;
         alert("數字欄位僅允許填入數字!");
     }
-    if(!addedProduct){
+    if (!addedProduct) {
         validate = false;
         alert("請添加售出商品!");
     } else {
