@@ -61,7 +61,7 @@ $(document).on('click', '.chosenBtn', function (e) {
                         <td>${searchReslt.product[key].unit}</td>
                         <td>${searchReslt.product[key].num}</td>
                         <td>${searchReslt.product[key].price}</td>
-                        <td><input type="number" id="${key}" value="${searchReslt.product[key].num}"></td>
+                        <td><input type="number" id="${key}" value="${searchReslt.product[key].num}" max="${searchReslt.product[key].num}"></td>
                     </tr>
                 `;
             }
@@ -79,6 +79,12 @@ function checkReturn() {
     returnProduct = {};
     for (var key in searchReslt.product) {
         if (searchReslt.product.hasOwnProperty(key)) {
+            if(searchReslt.product[key].num < $("#" + key).val()){
+                returnProduct = "nothing";
+                document.querySelector("#return-totalAmount").value = 0;
+                alert("退回數量大於售出數量!");
+                return;
+            }
             str += searchReslt.product[key].name + " * " + $("#" + key).val() + "\n";
             total += $("#" + key).val() * searchReslt.product[key].price;
             returnProduct[key] = {
@@ -147,18 +153,6 @@ function createReturn(e) {
                 note: document.querySelector("#return-note").value,
             }).then(function () {
                 db.ref("/return/" + myId + "/product/").set(returnProduct);
-
-                // for (var key in returnProduct) {
-                //     if (returnProduct.hasOwnProperty(key)) {
-                //         db.ref("/return/" + myId + "/product/" + key).set({
-                //             id: key,
-                //             name: returnProduct[key].name,
-                //             unit: returnProduct[key].unit,
-                //             num: returnProduct[key].num,
-                //             price: returnProduct[key].price,
-                //         })
-                //     }
-                // }
             }).then(function () {
                 alert("建立成功");
                 setTimeout(function () {
@@ -192,6 +186,10 @@ function validateData() {
     if (returnProduct == "nothing") {
         validate = false;
         alert("請確認退回商品!");
+    }
+    if (totalAmount == 0) {
+        validate = false;
+        alert("無退回商品!");
     }
     return validate;
 }
