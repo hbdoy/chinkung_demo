@@ -157,7 +157,7 @@ $(document).on('click', '.submitProduct', function (e) {
         if (!isNaN($("#m" + e.target.dataset.id).val()) && $("#m" + e.target.dataset.id).val() != "" && !isNaN($("#n" + e.target.dataset.id).val()) && $("#n" + e.target.dataset.id).val() != "") {
             $("#sellProduct").append(
                 `
-            <tr class="norep${allData[e.target.dataset.id].id}">
+            <tr class="norep${allData[e.target.dataset.id].id} ${allData[e.target.dataset.id].id}">
                 <td>
                     <button class="btn btn-danger removeBtn" data-id="${allData[e.target.dataset.id].id}">刪除</button>
                 </td>
@@ -233,7 +233,7 @@ function updateFormPrice() {
     // 折讓金額、含稅金額計算
     // Event keypress 綁在 inline 上
     document.querySelector("#sale-amountAfterDis").value = parseFloat(document.querySelector("#sale-salesAmount").value) - parseFloat(document.querySelector("#sale-salesDiscount").value);
-    document.querySelector("#sale-totalAmount").value = parseFloat(document.querySelector("#sale-amountAfterDis").value) + parseFloat(document.querySelector("#sale-tax").value);
+    document.querySelector("#sale-totalAmount").value = parseInt(parseFloat(document.querySelector("#sale-amountAfterDis").value) + parseFloat(document.querySelector("#sale-tax").value));
 }
 
 
