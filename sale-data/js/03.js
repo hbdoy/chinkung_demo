@@ -30,6 +30,9 @@ db.ref('/sell').once('value', function (snapshot) {
                 <td>
                     <button class="btn btn-info soldProductBtn" data-toggle="modal" data-target="#editModal" data-id="${tmp[i].id}">查看商品</button>
                 </td>
+                <td>
+                    <a href="./print.html#${tmp[i].id}" target="_blank" class="btn btn-info">列印</a>
+                </td>
             </tr>`;
     }
     $("#searchResult").html(str);

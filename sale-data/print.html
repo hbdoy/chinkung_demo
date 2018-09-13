@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>銷貨單列印</title>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBIfsxaO5ZOm_BR5wjAslfJmecLT5KNvBw",
+            authDomain: "chinkung-e5d67.firebaseapp.com",
+            databaseURL: "https://chinkung-e5d67.firebaseio.com",
+            projectId: "chinkung-e5d67",
+            storageBucket: "",
+            messagingSenderId: "404770260366"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="./js/print.js"></script>
+    <script>
+        var user;
+        firebase.auth().onAuthStateChanged(function (userS) {
+            if (userS) {
+                user = userS;
+                console.log("User is logined", user)
+            } else {
+                user = null;
+                console.log("User is not logined yet.");
+                window.location.href = '../login.html';
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm;
+                height: 297mm;
+            }
+        }
+
+        body {
+            font-family: '微軟正黑體';
+            padding: 50px;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+        }
+
+        .table-bordered {
+            border: 1.5px solid black !important;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="../img/logo.png" alt="logo" width="200px" style="position: absolute;">
+    <h1 class="text-center font-weight-bold">銷貨單</h1>
+    <div class="text-right mb-2">
+        <span style="font-size: 25px">勤工有限公司 台中市大雅區神林路一段267巷26號</span>
+        <br>
+        <span style="font-size: 25px">TEL: 04-25668713&nbsp;&nbsp;&nbsp;&nbsp;FAX: 04-25689840</span>
+        <br>
+        <span style="font-size: 19px">物流解決方案 特殊配備 堆高機 拖板車</span>
+    </div>
+    <table id="part-one" class="table table-bordered"></table>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>序</th>
+                <th>產品編號</th>
+                <th>產品名</th>
+                <th>規格</th>
+                <th>數量</th>
+                <th>單價</th>
+                <th>小計</th>
+                <th>備註</th>
+            </tr>
+        </thead>
+        <tbody id="part-two"></tbody>
+    </table>
+    <table id="part-three" class="table table-bordered"></table>
+    <table id="part-four" class="table table-bordered"></table>
+</body>
+
+</html>
