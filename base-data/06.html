@@ -38,15 +38,16 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <a class="navbar-brand" href="../index.html">勤工</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="baseData" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="baseData" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         基本資料
                     </a>
                     <div class="dropdown-menu" aria-labelledby="baseData">
@@ -59,16 +60,18 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="saleData" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="saleData" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         銷貨管理
                     </a>
                     <div class="dropdown-menu" aria-labelledby="saleData">
                         <a class="dropdown-item" href="../sale-data/01.html">銷貨單輸入作業</a>
-                        <a class="dropdown-item" href="../sale-data/02.html">銷貨退回單作業</a>                         <a class="dropdown-item" href="../sale-data/03.html">銷貨單查詢</a>
+                        <a class="dropdown-item" href="../sale-data/02.html">銷貨退回單作業</a> <a class="dropdown-item" href="../sale-data/03.html">銷貨單查詢</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="countChart" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="countChart" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         年度統計報表
                     </a>
                     <div class="dropdown-menu" aria-labelledby="countChart">
@@ -78,7 +81,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="arManage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="arManage" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         應收帳款管理
                     </a>
                     <div class="dropdown-menu" aria-labelledby="arManage">
@@ -94,7 +98,8 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="rManage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="rManage" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         收款管理系統
                     </a>
                     <div class="dropdown-menu" aria-labelledby="rManage">
@@ -113,8 +118,17 @@
         </div>
     </nav>
 
+    <div id="loading" style="width: 100%; height: 100%; opacity: 0.8; background-color: white; position: absolute; z-index: 99999; display: none">
+        <div class="text-center text-info">
+            <h1>
+                匯出中...請稍等
+            </h1>
+        </div>
+    </div>
+
     <div class="container">
         <h1 class="mb-3">廠商資料修改</h1>
+        <button id="exportExcel" class="btn btn-secondary mb-2">匯出Excel</button>
         <div class="table-responsive" style="max-height: 380px">
             <table class="table">
                 <thead>
@@ -129,6 +143,40 @@
                     </tr>
                 </thead>
                 <tbody id="dataList">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-responsive" style="max-height: 1px">
+            <table id="tableExcel">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>nickName</th>
+                        <th>uniformNum</th>
+                        <th>principal</th>
+                        <th>principalBirth</th>
+                        <th>contactMan</th>
+                        <th>salesMan</th>
+                        <th>phone</th>
+                        <th>companyPhone</th>
+                        <th>fax</th>
+                        <th>cellPhone</th>
+                        <th>postalCode</th>
+                        <th>email</th>
+                        <th>address</th>
+                        <th>deliveryAddr</th>
+                        <th>invoiceAddr</th>
+                        <th>invoiceTitle</th>
+                        <th>credits</th>
+                        <th>checkoutDay</th>
+                        <th>billingDay</th>
+                        <th>requestDay</th>
+                        <th>note</th>
+                    </tr>
+                </thead>
+                <tbody id="customData">
                 </tbody>
             </table>
         </div>
@@ -260,6 +308,8 @@
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/tableExport.js"></script>
+    <script src="../js/base64.min.js"></script>
     <script src="./js/06.js"></script>
 </body>
 
