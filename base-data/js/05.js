@@ -3,9 +3,11 @@ var db = firebase.database();
 var allData = {};
 var dataList = document.querySelector("#dataList");
 var updateBtn = document.querySelector("#updateBtn");
+var exportExcel = document.querySelector("#exportExcel");
 
 updateBtn.addEventListener('click', updateClient);
 dataList.addEventListener('click', autoFillInData);
+exportExcel.addEventListener('click', tranToLoading);
 
 db.ref('/client').once('value', function (snapshot) {
     allData = snapshot.val();
@@ -97,7 +99,7 @@ function updateClient(e) {
                     email: user.email,
                     type: "客戶資料修改",
                     createTime: DateTimezone(8)
-                }).then(function(){
+                }).then(function () {
                     // console.log("OKOK");
                     alert("修改成功");
                     setTimeout(function () {
@@ -148,7 +150,7 @@ function delItem(id) {
                     email: user.email,
                     type: "客戶資料刪除",
                     createTime: DateTimezone(8)
-                }).then(function(){
+                }).then(function () {
                     alert("刪除成功");
                     setTimeout(function () {
                         location.reload();
@@ -171,4 +173,53 @@ function DateTimezone(offset) {
     return new Date(utc + (3600000 * offset)).toLocaleString();
     // 8是台北
     // DateTimezone(8)
+}
+
+function tranToLoading() {
+    if (confirm("是否要匯出Excel?")) {
+        $("#loading").show();
+        setTimeout(exportTableToExcel, 1);
+    }
+}
+
+function exportTableToExcel() {
+    var str = "";
+    for (var key in allData) {
+        if (allData.hasOwnProperty(key)) {
+            str += `
+                <tr>
+                    <td>${allData[key].id || ""}</td>
+                    <td>${allData[key].name || ""}</td>
+                    <td>${allData[key].nickName || ""}</td>
+                    <td>${allData[key].uniformNum || ""}</td>
+                    <td>${allData[key].principal || ""}</td>
+                    <td>${allData[key].principalBirth || ""}</td>
+                    <td>${allData[key].contactMan || ""}</td>
+                    <td>${allData[key].salesMan || ""}</td>
+                    <td>${allData[key].phone || ""}</td>
+                    <td>${allData[key].companyPhone || ""}</td>
+                    <td>${allData[key].fax || ""}</td>
+                    <td>${allData[key].cellPhone || ""}</td>
+                    <td>${allData[key].postalCode || ""}</td>
+                    <td>${allData[key].email || ""}</td>
+                    <td>${allData[key].address || ""}</td>
+                    <td>${allData[key].deliveryAddr || ""}</td>
+                    <td>${allData[key].invoiceAddr || ""}</td>
+                    <td>${allData[key].invoiceTitle || ""}</td>
+                    <td>${allData[key].credits || ""}</td>
+                    <td>${allData[key].checkoutDay || ""}</td>
+                    <td>${allData[key].billingDay || ""}</td>
+                    <td>${allData[key].requestDay || ""}</td>
+                    <td>${allData[key].note || ""}</td>
+                </tr>`
+        }
+    }
+    $("#customData").html(str);
+    // 匯出
+    $("#tableExcel").tableExport({
+            type: "excel",
+            escape: "false"
+        },
+        'custom');
+    $("#customData").html('');
 }
