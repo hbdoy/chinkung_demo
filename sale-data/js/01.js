@@ -172,9 +172,13 @@ $(document).on('click', '.submitProduct', function (e) {
         `
             );
             updateTotalPrice();
+            $("#proBtn").click();
+            document.querySelector("#item-name").value = "";
+            document.querySelector("#item-key").value = "";
+            document.querySelector("#searchResult").innerHTML = "";
             alert("添加成功，請點擊查看銷售商品");
         } else {
-            alert("請輸入實際售價和商品數量")
+            alert("請輸入實際售價和商品數量");
         }
     }
 });
@@ -187,6 +191,10 @@ $(document).on('click', '.client_submitProduct', function (e) {
         document.querySelector("#sale-clientName").value = allClient[e.target.dataset.id].name;
         document.querySelector("#sale-deliveryAddr").value = allClient[e.target.dataset.id].deliveryAddr;
         document.querySelector("#sale-checkoutDay").value = allClient[e.target.dataset.id].checkoutDay;
+        $("#cusBtn").click();
+        document.querySelector("#client-id").value = "";
+        document.querySelector("#client-name").value = "";
+        document.querySelector("#client_searchResult").innerHTML = "";
         alert("已經客戶資料填入表單");
     } else {
         alert("發生未知錯誤，請手動輸入");
