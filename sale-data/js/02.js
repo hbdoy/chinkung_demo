@@ -4,12 +4,14 @@ var searchReslt = {};
 var returnProduct = "nothing";
 
 $("#searchBtn").click(mySearch);
+$("#sell-key").keyup(mySearch);
 $("#returnBtn").click(checkReturn);
 $("#subBtn").click(createReturn);
 
 autoFillInDate();
 
-function mySearch() {
+function mySearch(e) {
+    e.preventDefault();
     var str = "";
     if ($("#sell-key").val() == "") {
         $("#searchResult").html("請輸入資料以供查詢!");
@@ -100,7 +102,7 @@ function checkReturn() {
         // 取消則清空退還商品
         returnProduct = "nothing";
     } else {
-        document.querySelector("#return-totalAmount").value = total;
+        document.querySelector("#return-totalAmount").value = total * 1.05;
     }
 }
 
