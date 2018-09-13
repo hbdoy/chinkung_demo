@@ -17,13 +17,13 @@ db.ref('/product').once('value', function (snapshot) {
             <tr>
                 <td>
                     <button class="btn btn-info" data-toggle="modal" data-target="#editModal" data-id="${allData[key].id}">修改</button>
-                    <button class="btn btn-danger" data-method="del" data-id="${allData[key].id}">刪除</button>
+                    <button class="btn btn-danger" data-method="del" data-id="${allData[key].id || ""}">刪除</button>
                 </td>
-                <td>${allData[key].id}</td>
-                <td>${allData[key].name}</td>
-                <td>${allData[key].unit}</td>
-                <td>${allData[key].price}</td>
-                <td>${allData[key].cost}</td>
+                <td>${allData[key].id || ""}</td>
+                <td>${allData[key].name || ""}</td>
+                <td>${allData[key].unit || ""}</td>
+                <td>${allData[key].price || ""}</td>
+                <td>${allData[key].cost || ""}</td>
                 <td>...</td>
             </tr>`
         }
@@ -34,21 +34,21 @@ db.ref('/product').once('value', function (snapshot) {
 function autoFillInData(e) {
     // console.log(e.target.dataset.target);
     if (e.target.dataset.target == "#editModal") {
-        document.querySelector("#item-id").value = allData[e.target.dataset.id].id;
-        document.querySelector("#item-name").value = allData[e.target.dataset.id].name;
-        document.querySelector("#item-type").value = allData[e.target.dataset.id].type;
-        document.querySelector("#item-unit").value = allData[e.target.dataset.id].unit;
-        document.querySelector("#item-price").value = allData[e.target.dataset.id].price;
-        document.querySelector("#item-recPrice").value = allData[e.target.dataset.id].recPrice;
-        document.querySelector("#item-listPrice").value = allData[e.target.dataset.id].listPrice;
-        document.querySelector("#item-wage").value = allData[e.target.dataset.id].wage;
-        document.querySelector("#item-checkStock").value = allData[e.target.dataset.id].checkStock;
-        document.querySelector("#item-buyDate").value = allData[e.target.dataset.id].buyDate;
-        document.querySelector("#item-sellDate").value = allData[e.target.dataset.id].sellDate;
-        document.querySelector("#item-stock").value = allData[e.target.dataset.id].stock;
-        document.querySelector("#item-safeStock").value = allData[e.target.dataset.id].safeStock;
-        document.querySelector("#item-cost").value = allData[e.target.dataset.id].cost;
-        document.querySelector("#item-note").value = allData[e.target.dataset.id].note;
+        document.querySelector("#item-id").value = allData[e.target.dataset.id].id || "";
+        document.querySelector("#item-name").value = allData[e.target.dataset.id].name || "";
+        document.querySelector("#item-type").value = allData[e.target.dataset.id].type || "";
+        document.querySelector("#item-unit").value = allData[e.target.dataset.id].unit || "";
+        document.querySelector("#item-price").value = allData[e.target.dataset.id].price || "";
+        document.querySelector("#item-recPrice").value = allData[e.target.dataset.id].recPrice || "";
+        document.querySelector("#item-listPrice").value = allData[e.target.dataset.id].listPrice || "";
+        document.querySelector("#item-wage").value = allData[e.target.dataset.id].wage || "";
+        document.querySelector("#item-checkStock").value = allData[e.target.dataset.id].checkStock || "";
+        document.querySelector("#item-buyDate").value = allData[e.target.dataset.id].buyDate || "";
+        document.querySelector("#item-sellDate").value = allData[e.target.dataset.id].sellDate || "";
+        document.querySelector("#item-stock").value = allData[e.target.dataset.id].stock || "";
+        document.querySelector("#item-safeStock").value = allData[e.target.dataset.id].safeStock || "";
+        document.querySelector("#item-cost").value = allData[e.target.dataset.id].cost || "";
+        document.querySelector("#item-note").value = allData[e.target.dataset.id].note || "";
     } else if(e.target.dataset.method == "del"){
         delItem(e.target.dataset.id);
     }
