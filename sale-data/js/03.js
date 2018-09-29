@@ -3,7 +3,8 @@ var db = firebase.database();
 var allData = {};
 var allReturn = {};
 
-$("#searchResult").on('click', '.soldProductBtn' , autoFillInData);
+$("#searchResult").on('click', '.soldProductBtn', autoFillInData);
+$("#searchResult").on('click', '.delBtn', delOrder);
 
 db.ref('/sell').once('value', function (snapshot) {
     allData = snapshot.val();
@@ -19,6 +20,7 @@ db.ref('/sell').once('value', function (snapshot) {
         str += `
             <tr>
                 <td>
+                    <a class="btn btn-info" href="./01-edit.html#${tmp[i].id}" target="_blank">修改</a>
                     <button class="btn btn-danger delBtn" data-id="${tmp[i].id}">刪除</button>
                 </td>
                 <td>${tmp[i].id}</td>
@@ -62,14 +64,18 @@ function autoFillInData(e) {
     $("#sellProduct").html(str);
 }
 
-function getReturnNum (id, outerKey){
+function getReturnNum(id, outerKey) {
     var tmp = 0;
     for (var key in returnProduct[id]) {
         if (returnProduct[id].hasOwnProperty(key)) {
-            if(returnProduct[id][key].product.hasOwnProperty(outerKey)){
+            if (returnProduct[id][key].product.hasOwnProperty(outerKey)) {
                 tmp += parseInt(returnProduct[id][key].product[outerKey].returnNum);
             }
         }
     }
     return tmp;
+}
+
+function delOrder() {
+    console.log("hi");
 }
